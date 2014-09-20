@@ -1,0 +1,56 @@
+<%= form_for(@cardio) do |f| %>
+  <% if @cardio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cardio.errors.count, "error") %> prohibited this cardio from being saved:</h2>
+
+      <ul>
+      <% @cardio.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= f.hidden_field :day_id, value: @id %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br>
+    <%= f.text_field :notes %>
+  </div>
+  <div class="field">
+    <%= f.label "Duration (Minutes: Just Numbers)" %><br>
+    <%= f.number_field :duration, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label "Distance (Miles: Just Numbers)" %><br>
+    <%= f.number_field :distance, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label "60% Speed (Just Numbers)" %><br>
+    <%= f.number_field :sixty_percent_speed, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label "80% Speed (Just Numbers)" %><br>
+    <%= f.number_field :eighty_percent_speed, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label "90% Speed (Just Numbers)" %><br>
+    <%= f.number_field :ninety_percent_speed, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label "100% Speed (Just Numbers)" %><br>
+    <%= f.number_field :one_hundred_percent_speed, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label "Times Walked (Just Numbers)" %><br>
+    <%= f.number_field :times_walked, step: 'any' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

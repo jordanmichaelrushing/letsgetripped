@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2014-09-17 21:19:00
+  protein: 1.5
+  carbs: 1.5
+  fats: 1.5
+  sugar: 1.5
+  sodium: 1.5
+  saturated_fats: 1.5
+  cholesterol: 1.5
+  fiber: 1.5
+  meal_number: 1
+
+two:
+  date: 2014-09-17 21:19:00
+  protein: 1.5
+  carbs: 1.5
+  fats: 1.5
+  sugar: 1.5
+  sodium: 1.5
+  saturated_fats: 1.5
+  cholesterol: 1.5
+  fiber: 1.5
+  meal_number: 1

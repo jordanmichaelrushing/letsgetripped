@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong> Name: </strong>
+  <%= @cardio.name %>
+</p>
+<p>
+  <strong> Notes: </strong>
+  <%= @cardio.notes %>
+</p>
+<p>
+  <strong> Duration: </strong>
+  <%= @cardio.duration %>
+</p>
+<p>
+  <strong> Distance: </strong>
+  <%= @cardio.distance %>
+</p>
+<p>
+  <strong> 60% Speed: </strong>
+  <%= @cardio.sixty_percent_speed %>
+</p>
+<p>
+  <strong> 80% Speed: </strong>
+  <%= @cardio.eighty_percent_speed %>
+</p>
+<p>
+  <strong> 90% Speed: </strong>
+  <%= @cardio.ninety_percent_speed %>
+</p>
+<p>
+  <strong> 100% Speed: </strong>
+  <%= @cardio.one_hundred_percent_speed %>
+</p>
+<p>
+  <strong> Times Walked: </strong>
+  <%= @cardio.times_walked %>
+</p>
+
+<%= link_to 'Edit', edit_exercise_path(@cardio) %> |
+<%= link_to 'Home', root_path %>

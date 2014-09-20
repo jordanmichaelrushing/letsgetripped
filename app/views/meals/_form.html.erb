@@ -1,0 +1,63 @@
+<%= form_for(@meal) do |f| %>
+  <% if @meal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meal.errors.count, "error") %> prohibited this meal from being saved:</h2>
+
+      <ul>
+      <% @meal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :day_id, value: @id %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br>
+    <%= f.text_field :notes %>
+  </div>
+  <div class="field">
+    <%= f.label :protein %><br>
+    <%= f.number_field :protein, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :carbs %><br>
+    <%= f.number_field :carbs, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :fats %><br>
+    <%= f.number_field :fats, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :sugar %><br>
+    <%= f.number_field :sugar, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :sodium %><br>
+    <%= f.number_field :sodium, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :saturated_fats %><br>
+    <%= f.number_field :saturated_fats, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :cholesterol %><br>
+    <%= f.number_field :cholesterol, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :fiber %><br>
+    <%= f.number_field :fiber, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :meal_number %><br>
+    <%= f.number_field :meal_number, step: 'any' %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

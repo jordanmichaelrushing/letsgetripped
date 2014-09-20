@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Notes</strong>
+  <%= @super_challenge.notes %>
+</p>
+<p>
+  <strong>Push Ups</strong>
+  <%= @super_challenge.push_ups %>
+</p>
+<p>
+  <strong>Pull Ups</strong>
+  <%= @super_challenge.pull_ups %>
+</p>
+<p>
+  <strong>Running Time</strong>
+  <%= @super_challenge.duration %>
+</p>
+<p>
+  <strong>Running Distance</strong>
+  <%= @super_challenge.distance %>
+</p>
+<p>
+  <strong>Times Walked</strong>
+  <%= @super_challenge.times_walked %>
+</p>
+
+<%= link_to 'Edit', edit_super_challenge_path(@super_challenge) %> |
+<%= link_to 'Home', root_path %>

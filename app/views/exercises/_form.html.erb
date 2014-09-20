@@ -1,0 +1,52 @@
+<%= form_for(@exercise) do |f| %>
+  <% if @exercise.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@exercise.errors.count, "error") %> prohibited this exercise from being saved:</h2>
+
+      <ul>
+      <% @exercise.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :day_id, value: @id %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br>
+    <%= f.text_field :notes %>
+  </div>
+  <div class="field">
+    <%= f.label :img_url %><br>
+    <%= f.text_field :img_url %>
+  </div>
+  <div class="field">
+    <%= f.label :set_one_weight %><br>
+    <%= f.text_field :set_one_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :set_two_weight %><br>
+    <%= f.text_field :set_two_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :set_three_weight %><br>
+    <%= f.text_field :set_three_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :set_four_weight %><br>
+    <%= f.text_field :set_four_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :amrap_quantity %><br>
+    <%= f.text_field :amrap_quantity %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

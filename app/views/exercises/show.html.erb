@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @exercise.name %>
+</p>
+<p>
+  <strong>Notes:</strong>
+  <%= @exercise.notes %>
+</p>
+<p>
+  <strong>Image Url:</strong>
+  <%= @exercise.img_url %>
+</p>
+<p>
+  <strong>Set One Weight:</strong>
+  <%= @exercise.set_one_weight %>
+</p>
+<p>
+  <strong>Set Two Weight:</strong>
+  <%= @exercise.set_two_weight %>
+</p>
+<p>
+  <strong>Set Three Weight:</strong>
+  <%= @exercise.set_three_weight %>
+</p>
+<p>
+  <strong>Set Four Weight:</strong>
+  <%= @exercise.set_four_weight %>
+</p>
+<p>
+  <strong>Amrap Total:</strong>
+  <%= @exercise.amrap_quantity %>
+</p>
+
+<%= link_to 'Edit', edit_exercise_path(@exercise) %> |
+<%= link_to 'Home', root_path %>
