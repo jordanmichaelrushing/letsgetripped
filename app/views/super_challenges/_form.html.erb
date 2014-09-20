@@ -1,5 +1,4 @@
-<%= form_for(@super_challenge) do |f| %>
-  <% if @super_challenge.errors.any? %>
+<% if @super_challenge.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@super_challenge.errors.count, "error") %> prohibited this super_challenge from being saved:</h2>
 
@@ -11,7 +10,6 @@
     </div>
   <% end %>
   
-  <%= f.hidden_field :day_id, value: @id %>
 
   <div class="field">
     <%= f.label "Notes" %><br>
@@ -42,4 +40,3 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>

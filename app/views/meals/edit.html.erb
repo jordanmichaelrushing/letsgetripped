@@ -1,6 +1,8 @@
 <h1>Editing meal</h1>
 
-<%= render 'form' %>
+<%= form_for(@meal) do |f| %>
+  <%= render 'form', f: f %>
+<% end %>
 
 <%= link_to 'Show', @meal %> |
 <%= link_to 'Home', root_path %>

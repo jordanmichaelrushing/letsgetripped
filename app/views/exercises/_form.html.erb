@@ -1,4 +1,3 @@
-<%= form_for(@exercise) do |f| %>
   <% if @exercise.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@exercise.errors.count, "error") %> prohibited this exercise from being saved:</h2>
@@ -10,8 +9,6 @@
       </ul>
     </div>
   <% end %>
-
-  <%= f.hidden_field :day_id, value: @id %>
 
   <div class="field">
     <%= f.label :name %><br>
@@ -49,4 +46,3 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>

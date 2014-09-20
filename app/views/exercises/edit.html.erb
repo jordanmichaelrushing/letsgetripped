@@ -1,6 +1,8 @@
 <h1>Editing exercise</h1>
 
-<%= render 'form' %>
+<%= form_for(@exercise) do |f| %>
+  <%= render 'form', f: f %>
+<% end %>
 
 <%= link_to 'Show', @exercise %> |
 <%= link_to 'Home', root_path %>
