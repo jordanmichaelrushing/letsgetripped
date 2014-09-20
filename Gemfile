@@ -28,6 +28,7 @@ gem 'spring',        group: :development
 
 gem 'haml',       group: :development
 gem 'pg',       group: :production
+gem 'rails_12factor', group: :production
 gem 'devise'
 
 # Use ActiveModel has_secure_password
