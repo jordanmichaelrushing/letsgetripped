@@ -14,32 +14,20 @@
   <%= f.hidden_field :day_id, value: @id %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label "Meal Name?" %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br>
+    <%= f.label "What did you eat?" %><br>
     <%= f.text_field :notes %>
   </div>
   <div class="field">
-    <%= f.label :protein %><br>
-    <%= f.number_field :protein, step: 'any' %>
-  </div>
-  <div class="field">
-    <%= f.label :carbs %><br>
-    <%= f.number_field :carbs, step: 'any' %>
+    <%= f.label "Meal Number?" %><br>
+    <%= f.number_field :meal_number, step: 'any' %>
   </div>
   <div class="field">
     <%= f.label :fats %><br>
     <%= f.number_field :fats, step: 'any' %>
-  </div>
-  <div class="field">
-    <%= f.label :sugar %><br>
-    <%= f.number_field :sugar, step: 'any' %>
-  </div>
-  <div class="field">
-    <%= f.label :sodium %><br>
-    <%= f.number_field :sodium, step: 'any' %>
   </div>
   <div class="field">
     <%= f.label :saturated_fats %><br>
@@ -50,12 +38,24 @@
     <%= f.number_field :cholesterol, step: 'any' %>
   </div>
   <div class="field">
+    <%= f.label :sodium %><br>
+    <%= f.number_field :sodium, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :carbs %><br>
+    <%= f.number_field :carbs, step: 'any' %>
+  </div>
+  <div class="field">
     <%= f.label :fiber %><br>
     <%= f.number_field :fiber, step: 'any' %>
   </div>
   <div class="field">
-    <%= f.label :meal_number %><br>
-    <%= f.number_field :meal_number, step: 'any' %>
+    <%= f.label :sugar %><br>
+    <%= f.number_field :sugar, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label :protein %><br>
+    <%= f.number_field :protein, step: 'any' %>
   </div>
   <div class="actions">
     <%= f.submit %>

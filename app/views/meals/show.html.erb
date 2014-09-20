@@ -11,28 +11,13 @@
 </p>
 
 <p>
-  <strong>Protein:</strong>
-  <%= @meal.protein %>
-</p>
-
-<p>
-  <strong>Carbs:</strong>
-  <%= @meal.carbs %>
+  <strong>Meal number:</strong>
+  <%= @meal.meal_number %>
 </p>
 
 <p>
   <strong>Fats:</strong>
   <%= @meal.fats %>
-</p>
-
-<p>
-  <strong>Sugar:</strong>
-  <%= @meal.sugar %>
-</p>
-
-<p>
-  <strong>Sodium:</strong>
-  <%= @meal.sodium %>
 </p>
 
 <p>
@@ -46,13 +31,29 @@
 </p>
 
 <p>
+  <strong>Sodium:</strong>
+  <%= @meal.sodium %>
+</p>
+
+<p>
+  <strong>Carbs:</strong>
+  <%= @meal.carbs %>
+</p>
+
+<p>
   <strong>Fiber:</strong>
   <%= @meal.fiber %>
 </p>
 
 <p>
-  <strong>Meal number:</strong>
-  <%= @meal.meal_number %>
+  <strong>Sugar:</strong>
+  <%= @meal.sugar %>
 </p>
+
+<p>
+  <strong>Protein:</strong>
+  <%= @meal.protein %>
+</p>
+
 <%= link_to 'Edit', edit_meal_path(@meal) %> |
 <%= link_to 'Home', root_path %>
