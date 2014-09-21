@@ -1,187 +1,190 @@
-.container
-  %p#notice
-    = notice
+%p#notice
+  = notice
 
-  %p.col-xs-12
-    %strong
-      = @day.date.strftime("%b %d, %Y")
-    %hr
-    - if @day.exercises.present?
-      .col-xs-12
-        %strong
-          Exercises:
-        %br
-        - @day.exercises.each do |exercise|
-          %div.col-xs-3.height-selector
+%p.col-xs-12
+  %strong
+    = @day.date.strftime("%b %d, %Y")
+  %hr
+  - if @day.exercises.present?
+    .col-xs-12
+      %strong
+        Exercises:
+      %br
+      - @day.exercises.each do |exercise|
+        .col-xs-3.height-selector{href: "#{exercise_path(exercise)}"}
+          %strong
+            = link_to exercise.name, exercise
+          %ul
+            %li
+              %strong
+                Notes:
+              = exercise.notes
+            %li
+              %strong
+                Image Url:
+              = exercise.img_url
+            %li
+              %strong
+                Set One Weight:
+              = exercise.set_one_weight
+            %li
+              %strong
+                Set Two Weight:
+              = exercise.set_two_weight
+            %li
+              %strong
+                Set Three Weight:
+              = exercise.set_three_weight
+            %li
+              %strong
+                Set Four Weight:
+              = exercise.set_four_weight
+            %li
+              %strong
+                AMRAP TOTAL:
+              = exercise.amrap_quantity
+            %hr
+  - cardio = @day.cardio
+  - if cardio.present?
+    .col-xs-12
+      %strong
+        = link_to cardio.name, cardio
+      %br
+      %div.col-xs-3.height-selector{href: "#{cardio_path(cardio)}"}
+        %ul
+          %li
             %strong
-              = link_to exercise.name, exercise
-            %ul
-              %li
-                %strong
-                  Notes:
-                = exercise.notes
-              %li
-                %strong
-                  Image Url:
-                = exercise.img_url
-              %li
-                %strong
-                  Set One Weight:
-                = exercise.set_one_weight
-              %li
-                %strong
-                  Set Two Weight:
-                = exercise.set_two_weight
-              %li
-                %strong
-                  Set Three Weight:
-                = exercise.set_three_weight
-              %li
-                %strong
-                  Set Four Weight:
-                = exercise.set_four_weight
-              %li
-                %strong
-                  AMRAP TOTAL:
-                = exercise.amrap_quantity
-              %hr
-    - cardio = @day.cardio
-    - if cardio.present?
-      .col-xs-12
-        %strong
-          = link_to cardio.name, cardio
-        %br
-        %div.col-xs-3.height-selector
+              Distance:
+            = cardio.distance
+          %li
+            %strong
+              Duration:
+            = cardio.duration
+          %li
+            %strong
+              Notes:
+            = cardio.notes
+          %li
+            %strong
+              60% Speed:
+            = cardio.sixty_percent_speed
+          %li
+            %strong
+              80% Speed:
+            = cardio.eighty_percent_speed
+          %li
+            %strong
+              90% Speed:
+            = cardio.ninety_percent_speed
+          %li
+            %strong
+              100% Speed:
+            = cardio.one_hundred_percent_speed
+          %li
+            %strong
+              Times Walked:
+            = cardio.times_walked
+          %hr
+  - challenge = @day.super_challenge
+  - if challenge.present?
+    .col-xs-12
+      %strong
+        = link_to "Super Challenge", challenge
+      %br
+      %div.col-xs-3.height-selector{href: "#{super_challenge_path(challenge)}"}
+        %ul
+          %li 
+            %strong
+              Notes:
+            = challenge.notes
+          %li 
+            %strong
+              Push Ups:
+            = challenge.push_ups
+          %li 
+            %strong
+              Pull Ups:
+            = challenge.pull_ups
+          %li 
+            %strong
+              Duration:
+            = challenge.duration
+          %li 
+            %strong
+              Distance:
+            = challenge.distance
+          %li 
+            %strong
+              Times Walked:
+            = challenge.times_walked
+          %hr
+  - if @day.meals.present?
+    .col-xs-12
+      %strong
+        Meals
+      %br
+      - @day.meals.each do |meal|
+        %div.col-xs-3.height-selector{href: "#{meal_path(meal)}"}
+          - if meal.name
+            %strong
+              = link_to meal.name, meal
           %ul
             %li
               %strong
-                Distance:
-              = cardio.distance
-            %li
-              %strong
-                Duration:
-              = cardio.duration
-            %li
-              %strong
                 Notes:
-              = cardio.notes
+              = meal.notes
             %li
               %strong
-                60% Speed:
-              = cardio.sixty_percent_speed
+                Meal number:
+              = meal.meal_number
             %li
               %strong
-                80% Speed:
-              = cardio.eighty_percent_speed
+                Fats:
+              = meal.fats
             %li
               %strong
-                90% Speed:
-              = cardio.ninety_percent_speed
+                Saturated fats:
+              = meal.saturated_fats
             %li
               %strong
-                100% Speed:
-              = cardio.one_hundred_percent_speed
+                Cholesterol:
+              = meal.cholesterol
             %li
               %strong
-                Times Walked:
-              = cardio.times_walked
+                Sodium:
+              = meal.sodium
+            %li
+              %strong
+                Carbs:
+              = meal.carbs
+            %li
+              %strong
+                Fiber:
+              = meal.fiber
+            %li
+              %strong
+                Sugar:
+              = meal.sugar
+            %li
+              %strong
+                Protein:
+              = meal.protein
             %hr
-    - challenge = @day.super_challenge
-    - if challenge.present?
-      .col-xs-12
-        %strong
-          = link_to "Super Challenge", challenge
-        %br
-        %div.col-xs-3.height-selector
-          %ul
-            %li 
-              %strong
-                Notes:
-              = challenge.notes
-            %li 
-              %strong
-                Push Ups:
-              = challenge.push_ups
-            %li 
-              %strong
-                Pull Ups:
-              = challenge.pull_ups
-            %li 
-              %strong
-                Duration:
-              = challenge.duration
-            %li 
-              %strong
-                Distance:
-              = challenge.distance
-            %li 
-              %strong
-                Times Walked:
-              = challenge.times_walked
-            %hr
-    - if @day.meals.present?
-      .col-xs-12
-        %strong
-          Meals
-        %br
-        - @day.meals.each do |meal|
-          %div.col-xs-3.height-selector
-            - if meal.name
-              %strong
-                = link_to meal.name, meal
-            %ul
-              %li
-                %strong
-                  Notes:
-                = meal.notes
-              %li
-                %strong
-                  Meal number:
-                = meal.meal_number
-              %li
-                %strong
-                  Fats:
-                = meal.fats
-              %li
-                %strong
-                  Saturated fats:
-                = meal.saturated_fats
-              %li
-                %strong
-                  Cholesterol:
-                = meal.cholesterol
-              %li
-                %strong
-                  Sodium:
-                = meal.sodium
-              %li
-                %strong
-                  Carbs:
-                = meal.carbs
-              %li
-                %strong
-                  Fiber:
-                = meal.fiber
-              %li
-                %strong
-                  Sugar:
-                = meal.sugar
-              %li
-                %strong
-                  Protein:
-                = meal.protein
-              %hr
-  %strong.col-xs-12
-    .col-xs-3
-      = link_to 'Add Exercise', new_exercise_path({id: @day.id})
-    .col-xs-3
-      = link_to 'Add Cardio', new_cardio_path({id: @day.id})
-    .col-xs-3
-      = link_to 'Add Meal', new_meal_path({id: @day.id})
-    .col-xs-3
-      = link_to 'Add Super Challenge', new_super_challenge_path({id: @day.id})
-    %br
-    %br
-    = link_to 'Edit', edit_day_path(@day)
-    |
-    = link_to 'Back', days_path
+%strong.col-xs-12
+  .col-xs-3
+    = link_to 'Add Exercise', new_exercise_path({id: @day.id})
+  .col-xs-3
+    = link_to 'Add Cardio', new_cardio_path({id: @day.id})
+  .col-xs-3
+    = link_to 'Add Meal', new_meal_path({id: @day.id})
+  .col-xs-3
+    = link_to 'Add Super Challenge', new_super_challenge_path({id: @day.id})
+  %br
+  %br
+  = link_to 'Edit', edit_day_path(@day)
+  |
+  = link_to 'Back', days_path
+:javascript
+  $(".height-selector").on("click", function(){
+    window.location = $(this).attr("href");
+  })
