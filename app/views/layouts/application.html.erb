@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <% if current_user %>
-    <title><%= current_user.name%>Ripped</title>
-  <% else %>
-    <title>Let's Get Ripped</title>
-  <% end %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <% if current_user %>
+      <title><%= current_user.name%>Ripped</title>
+    <% else %>
+      <title>Let's Get Ripped</title>
+    <% end %>
+    <style>
+      .height-selector {height: 200px; overflow-y: scroll; border: solid black 1px; margin: 3px;box-shadow: 4px 2px 10px;}
+      .height-selector:hover {box-shadow: 10px 2px 20px;}
+    </style>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <% if current_user %>
+      <a class="btn btn-default btn-small pull-right" href="/logout" style="padding:2px 10px;background:#fff;">Sign Out</a>
+    <% end %>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
 </html>

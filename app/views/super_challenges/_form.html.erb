@@ -1,42 +1,72 @@
 <% if @super_challenge.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@super_challenge.errors.count, "error") %> prohibited this super_challenge from being saved:</h2>
+  <div id="error_explanation">
+    <h2><%= pluralize(@super_challenge.errors.count, "error") %> prohibited this super_challenge from being saved:</h2>
 
-      <ul>
-      <% @super_challenge.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
+    <ul>
+    <% @super_challenge.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
-  <div class="field">
-    <%= f.label "Notes" %><br>
-    <%= f.text_field :notes %>
-  </div>
-  <div class="field">
-    <%= f.label "Push Ups (Quantity Only)" %><br>
-    <%= f.text_field :push_ups, step: 'any' %>
-  </div>
-  <div class="field">
-    <%= f.label "Pull Ups (Quantity Only)" %><br>
-    <%= f.text_field :pull_ups, step: 'any' %>
-  </div>
-  <div class="field">
-    <strong>Duration In Minutes, seconds in decimal. Example: 1 Minute, 30 seconds should be written 1.5; 1 hour, 20 minutes, 30 seconds should be written 80.5</strong>
-    <br>
-    <%= f.text_field :duration, step: 'any' %>
-  </div>
-  <div class="field">
-    <%= f.label "Distance (Quantity Only)" %><br>
-    <%= f.text_field :distance, step: 'any' %>
-  </div>
-  <div class="field">
-    <%= f.label "Times Walked" %><br>
-    <%= f.text_field :times_walked, step: 'any' %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+<div class="field">
+  <%= f.label "Notes" %><br>
+  <%= f.text_field :notes %>
+</div>
+<div class="field">
+  <%= f.label "Push Ups (Quantity Only)" %><br>
+  <%= f.text_field :push_ups, step: 'any' %>
+</div>
+<div class="field">
+  <%= f.label "Pull Ups (Quantity Only)" %><br>
+  <%= f.text_field :pull_ups, step: 'any' %>
+</div>
+<div class="field">
+  <%= f.label "Duration (Hours-Minutes-Seconds)" %><br>
+  <%= f.hidden_field :duration, step: 'any' %>
+  <%= text_field_tag 'hours', 0, {style: "width: 50px;"} %> - 
+  <%= text_field_tag 'minutes', 0, {style: "width: 50px;"} %> - 
+  <%= text_field_tag 'seconds', 0, {style: "width: 50px;"} %>
+</div>
+<div class="field">
+  <%= f.label "Distance (Quantity Only)" %><br>
+  <%= f.text_field :distance, step: 'any' %>
+</div>
+<div class="field">
+  <%= f.label "Times Walked" %><br>
+  <%= f.text_field :times_walked, step: 'any' %>
+</div>
+
+<div class="actions">
+  <%= f.submit %>
+</div>
+<script>
+  if (document.URL.split('/')[document.URL.split('/').length - 1] == 'edit' && $("#super_challenge_duration").val() != 0) {
+
+    var hours = parseInt($("#super_challenge_duration").val() / 60);
+    if (!isNaN(hours)){
+      $("#hours").val(hours);
+    } else {
+      $("#hours").val(0);
+    }
+
+    var minutes = parseFloat($("#super_challenge_duration").val() / 60);
+    if (!isNaN(minutes)){
+      $("#minutes").val(parseInt(60 * (minutes - hours)));
+    } else {
+      $("#minutes").val(0);
+    }
+
+    var seconds = parseFloat(60 * (minutes - hours))
+    if (!isNaN(seconds)){
+      $("#seconds").val(parseInt(60 * (seconds - parseInt(60 * (minutes - hours)))));
+    } else {
+      $("#seconds").val(0);
+    }
+  }
+  $("form").on('submit',function(){
+    $("#super_challenge_duration").val(parseInt($("#hours").val() * 60) + parseInt($("#minutes").val()) + parseFloat($("#seconds").val() / 60));
+  })
+</script>

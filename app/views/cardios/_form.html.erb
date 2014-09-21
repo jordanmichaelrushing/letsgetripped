@@ -20,8 +20,9 @@
     <%= f.text_field :notes %>
   </div>
   <div class="field">
-    <%= f.label "Duration (Minutes: Just Numbers)" %><br>
-    <%= f.number_field :duration, step: 'any' %>
+    <%= f.label "Duration" %><br>
+    20 Minutes
+    <%= f.hidden_field :duration, value: 20 %>
   </div>
   <div class="field">
     <%= f.label "Distance (Miles: Just Numbers)" %><br>
@@ -44,7 +45,7 @@
     <%= f.number_field :one_hundred_percent_speed, step: 'any' %>
   </div>
   <div class="field">
-    <%= f.label "Times Walked (Just Numbers)" %><br>
+    <%= f.label "Number Of Times Walked (Just Numbers)" %><br>
     <%= f.number_field :times_walked, step: 'any' %>
   </div>
 

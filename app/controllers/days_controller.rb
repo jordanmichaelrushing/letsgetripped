@@ -1,28 +1,20 @@
 class DaysController < ApplicationController
   before_action :set_day, only: [:show, :edit, :update, :destroy]
 
-  # GET /days
-  # GET /days.json
   def index
-    @days = current_user.days.all
+    @days = current_user.days.all.order("date desc")
   end
 
-  # GET /days/1
-  # GET /days/1.json
   def show
   end
 
-  # GET /days/new
   def new
     @day = current_user.days.new
   end
 
-  # GET /days/1/edit
   def edit
   end
 
-  # POST /days
-  # POST /days.json
   def create
     params[:date] = Date.parse(params[:day][:date])
     @day = current_user.days.new(day_params)
@@ -36,8 +28,6 @@ class DaysController < ApplicationController
     end
   end
 
-  # PATCH/PUT /days/1
-  # PATCH/PUT /days/1.json
   def update
     respond_to do |format|
       if @day.update(day_params)
@@ -50,8 +40,6 @@ class DaysController < ApplicationController
     end
   end
 
-  # DELETE /days/1
-  # DELETE /days/1.json
   def destroy
     @day.destroy
     respond_to do |format|
@@ -61,12 +49,10 @@ class DaysController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_day
       @day = current_user.days.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def day_params
       params.require(:day).permit(:date, :user_id)
     end

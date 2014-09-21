@@ -13,47 +13,47 @@
 
   <div class="field">
     <%= f.label "Meal Name?" %><br>
-    <%= f.text_field :name %>
+    <%= f.select :name, options_for_select([["Breakfast","Breakfast"], ["Snack 1", "Snack 1"], ["Lunch","Lunch"], ["Snack 2","Snack 2"], ["Dinner","Dinner"], ["Snack 3","Snack 3"]]) %>
   </div>
   <div class="field">
     <%= f.label "What did you eat?" %><br>
-    <%= f.text_field :notes %>
+    <%= f.text_field :notes, style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label "Meal Number?" %><br>
-    <%= f.number_field :meal_number, step: 'any' %>
+    <%= f.number_field :meal_number, step: 'any', style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label :fats %><br>
-    <%= f.number_field :fats, step: 'any' %>
+    <%= f.number_field :fats, step: 'any', style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label :saturated_fats %><br>
-    <%= f.number_field :saturated_fats, step: 'any' %>
+    <%= f.number_field :saturated_fats, step: 'any', style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label :cholesterol %><br>
-    <%= f.number_field :cholesterol, step: 'any' %>
+    <%= f.number_field :cholesterol, step: 'any', style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label :sodium %><br>
-    <%= f.number_field :sodium, step: 'any' %>
+    <%= f.number_field :sodium, step: 'any', style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label :carbs %><br>
-    <%= f.number_field :carbs, step: 'any' %>
+    <%= f.number_field :carbs, step: 'any', style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label :fiber %><br>
-    <%= f.number_field :fiber, step: 'any' %>
+    <%= f.number_field :fiber, step: 'any', style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label :sugar %><br>
-    <%= f.number_field :sugar, step: 'any' %>
+    <%= f.number_field :sugar, step: 'any', style: "width:60px" %>
   </div>
   <div class="field">
     <%= f.label :protein %><br>
-    <%= f.number_field :protein, step: 'any' %>
+    <%= f.number_field :protein, step: 'any', style: "width:60px" %>
   </div>
   <div class="actions">
     <%= f.submit %>
