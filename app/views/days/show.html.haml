@@ -172,13 +172,13 @@
             %hr
 %strong.col-xs-12
   .col-xs-3
-    = link_to 'Add Exercise', new_exercise_path({id: @day.id})
+    = link_to 'Add Exercise', new_exercise_path({day: @day.id})
   .col-xs-3
-    = link_to 'Add Cardio', new_cardio_path({id: @day.id})
+    = link_to 'Add Cardio', new_cardio_path({day: @day.id})
   .col-xs-3
-    = link_to 'Add Meal', new_meal_path({id: @day.id})
+    = link_to 'Add Meal', new_meal_path({day: @day.id})
   .col-xs-3
-    = link_to 'Add Super Challenge', new_super_challenge_path({id: @day.id})
+    = link_to 'Add Super Challenge', new_super_challenge_path({day: @day.id})
   %br
   %br
   = link_to 'Edit', edit_day_path(@day)
