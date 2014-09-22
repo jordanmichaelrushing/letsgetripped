@@ -6,7 +6,6 @@ class DaysController < ApplicationController
   end
 
   def show
-    @day_id = params[:day]
   end
 
   def new

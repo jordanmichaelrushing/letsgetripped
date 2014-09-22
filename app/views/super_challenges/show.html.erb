@@ -32,7 +32,7 @@
 <%= @score %> Out Of 300 Points
 <br><br>
 <%= link_to 'Edit', edit_super_challenge_path(@super_challenge, day: @day_id) %> |
-<%= link_to 'Back', day_path(@day_id) %>
+<%= link_to 'Home', root_path %>
 
 <script>
 if ($("#duration").text() != 0) {

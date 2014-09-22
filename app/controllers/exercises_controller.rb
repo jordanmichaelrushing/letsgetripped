@@ -10,7 +10,6 @@ class ExercisesController < ApplicationController
   # GET /exercises/1
   # GET /exercises/1.json
   def show
-    @day_id = params[:day]
   end
 
   # GET /exercises/new

@@ -10,7 +10,6 @@ class CardiosController < ApplicationController
   # GET /cardios/1
   # GET /cardios/1.json
   def show
-    @day_id = params[:day]
   end
 
   # GET /cardios/new

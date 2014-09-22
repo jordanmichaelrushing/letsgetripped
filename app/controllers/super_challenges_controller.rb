@@ -6,7 +6,6 @@ class SuperChallengesController < ApplicationController
   end
 
   def show
-    @day_id = params[:day]
     if @super_challenge.duration
       if @super_challenge.duration > 18
         time = 100 - ((@super_challenge.duration * 60 - 1080) / 10).to_i
