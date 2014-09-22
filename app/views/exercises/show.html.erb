@@ -35,5 +35,5 @@
   <%= @exercise.amrap_quantity %>
 </p>
 
-<%= link_to 'Edit', edit_exercise_path(@exercise) %> |
+<%= link_to 'Edit', edit_exercise_path(@exercise, day: @day_id) %> |
 <%= link_to 'Back', day_path(@day_id) %>

@@ -37,5 +37,5 @@
   <%= @cardio.times_walked %>
 </p>
 
-<%= link_to 'Edit', edit_exercise_path(@cardio) %> |
+<%= link_to 'Edit', edit_exercise_path(@cardio, day: @day_id) %> |
 <%= link_to 'Back', day_path(@day_id) %>

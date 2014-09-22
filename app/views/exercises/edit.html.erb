@@ -4,5 +4,5 @@
   <%= render 'form', f: f %>
 <% end %>
 
-<%= link_to 'Show', @exercise %> |
-<%= link_to 'Back', day_path(@day_id) %>
+<%= link_to 'Show', "/exercises/#{@exercise.id}?day=#{@day_id}" %> |
+<%= link_to 'Back', exercise_path(@exercise, day: @day_id) %>

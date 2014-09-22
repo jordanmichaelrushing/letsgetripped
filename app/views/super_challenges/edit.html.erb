@@ -4,5 +4,5 @@
   <%= render 'form', f: f %>
 <% end %>
 
-<%= link_to 'Show', @exercise %> |
-<%= link_to 'Back', day_path(@day_id) %>
+<%= link_to 'Show', "/super_challenges/#{@super_challenge.id}?day=#{@day_id}" %> |
+<%= link_to 'Back', super_challenge_path(@super_challenge, day: @day_id) %>
