@@ -1,7 +1,7 @@
 <h1>New Cardio</h1>
 
 <%= form_for(@cardio) do |f| %>
-  <%= f.hidden_field :day_id, value: @id %>
+  <%= f.hidden_field :day_id, value: @day_id %>
   <%= render 'form', f: f %>
 <% end %>
 
