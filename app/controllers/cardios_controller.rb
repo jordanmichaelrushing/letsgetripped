@@ -10,16 +10,19 @@ class CardiosController < ApplicationController
   # GET /cardios/1
   # GET /cardios/1.json
   def show
+    @day_id = params[:day]
   end
 
   # GET /cardios/new
   def new
+    @day_id = params[:day]
     @id = params[:id]
     @cardio = current_user.cardios.new
   end
 
   # GET /cardios/1/edit
   def edit
+    @day_id = params[:day]
   end
 
   # POST /cardios

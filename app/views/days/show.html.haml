@@ -11,18 +11,15 @@
         Exercises:
       %br
       - @day.exercises.each do |exercise|
-        .col-xs-3.height-selector{href: "#{exercise_path(exercise)}"}
+        .col-xs-3.height-selector{href: "#{exercise_path(exercise, day: @day.id)}"}
           %strong
             = link_to exercise.name, exercise
           %ul
-            %li
-              %strong
-                Notes:
-              = exercise.notes
-            %li
-              %strong
-                Image Url:
-              = exercise.img_url
+            - if exercise.notes.present?
+              %li
+                %strong
+                  Notes:
+                = exercise.notes
             %li
               %strong
                 Set One Weight:
@@ -50,7 +47,7 @@
       %strong
         = link_to cardio.name, cardio
       %br
-      %div.col-xs-3.height-selector{href: "#{cardio_path(cardio)}"}
+      %div.col-xs-3.height-selector{href: "#{cardio_path(cardio, day: @day.id)}"}
         %ul
           %li
             %strong
@@ -60,10 +57,11 @@
             %strong
               Duration:
             = cardio.duration
-          %li
-            %strong
-              Notes:
-            = cardio.notes
+          - if cardio.notes.present?
+            %li
+              %strong
+                Notes:
+              = cardio.notes
           %li
             %strong
               60% Speed:
@@ -91,12 +89,13 @@
       %strong
         = link_to "Super Challenge", challenge
       %br
-      %div.col-xs-3.height-selector{href: "#{super_challenge_path(challenge)}"}
+      %div.col-xs-3.height-selector{href: "#{super_challenge_path(challenge, day: @day.id)}"}
         %ul
-          %li 
-            %strong
-              Notes:
-            = challenge.notes
+          - if challenge.notes.present?
+            %li 
+              %strong
+                Notes:
+              = challenge.notes
           %li 
             %strong
               Push Ups:
@@ -124,15 +123,16 @@
         Meals
       %br
       - @day.meals.each do |meal|
-        %div.col-xs-3.height-selector{href: "#{meal_path(meal)}"}
+        %div.col-xs-3.height-selector{href: "#{meal_path(meal, day: @day.id)}"}
           - if meal.name
             %strong
               = link_to meal.name, meal
           %ul
-            %li
-              %strong
-                Notes:
-              = meal.notes
+            - if meal.notes.present?
+              %li
+                %strong
+                  Notes:
+                = meal.notes
             %li
               %strong
                 Meal number:

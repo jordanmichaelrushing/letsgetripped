@@ -4,4 +4,4 @@
   <%= f.hidden_field :day_id, value: @id %>
   <%= render 'form', f: f %>
 <% end %>
-<%= link_to 'Home', root_path %>
+<%= link_to 'Back', day_path(@day_id) %>

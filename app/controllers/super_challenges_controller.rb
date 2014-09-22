@@ -6,14 +6,38 @@ class SuperChallengesController < ApplicationController
   end
 
   def show
+    @day_id = params[:day]
+    if @super_challenge.duration
+      if @super_challenge.duration > 18
+        time = 100 - ((@super_challenge.duration * 60 - 1080) / 10).to_i
+        time = 0 if time < 0
+      else
+        time = 100
+      end
+    else
+      time = 0
+    end
+    if @super_challenge.push_ups >= 50
+      push_ups = 100
+    else
+      push_ups = @super_challenge.push_ups * 2 || 0
+    end
+    if @super_challenge.pull_ups >= 20
+      pull_ups = 100
+    else
+      pull_ups = @super_challenge.pull_ups * 5 || 0
+    end
+    @score = pull_ups + push_ups + time
   end
 
   def new
+    @day_id = params[:day]
     @id = params[:id]
     @super_challenge = SuperChallenge.new
   end
 
   def edit
+    @day_id = params[:day]
   end
 
   def create

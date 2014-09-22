@@ -10,16 +10,19 @@ class ExercisesController < ApplicationController
   # GET /exercises/1
   # GET /exercises/1.json
   def show
+    @day_id = params[:day]
   end
 
   # GET /exercises/new
   def new
+    @day_id = params[:day]
     @id = params[:id]
     @exercise = current_user.exercises.new
   end
 
   # GET /exercises/1/edit
   def edit
+    @day_id = params[:day]
   end
 
   # POST /exercises

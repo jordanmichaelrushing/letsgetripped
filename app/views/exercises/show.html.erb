@@ -4,10 +4,12 @@
   <strong>Name:</strong>
   <%= @exercise.name %>
 </p>
-<p>
-  <strong>Notes:</strong>
-  <%= @exercise.notes %>
-</p>
+<% if @exercise.notes.present? %>
+  <p>
+    <strong>Notes:</strong>
+    <%= @exercise.notes %>
+  </p>
+<% end %>
 <p>
   <strong>Image Url:</strong>
   <%= @exercise.img_url %>
@@ -34,4 +36,4 @@
 </p>
 
 <%= link_to 'Edit', edit_exercise_path(@exercise) %> |
-<%= link_to 'Home', root_path %>
+<%= link_to 'Back', day_path(@day_id) %>

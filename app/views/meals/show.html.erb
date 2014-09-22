@@ -5,10 +5,12 @@
   <%= @meal.name %>
 </p>
 
-<p>
-  <strong>Notes:</strong>
-  <%= @meal.notes %>
-</p>
+<% if @meal.notes.present? %>
+  <p>
+    <strong>Notes:</strong>
+    <%= @meal.notes %>
+  </p>
+<% end %>
 
 <p>
   <strong>Meal number:</strong>
@@ -56,4 +58,4 @@
 </p>
 
 <%= link_to 'Edit', edit_meal_path(@meal) %> |
-<%= link_to 'Home', root_path %>
+<%= link_to 'Back', day_path(@day_id) %>

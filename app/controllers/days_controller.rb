@@ -6,13 +6,16 @@ class DaysController < ApplicationController
   end
 
   def show
+    @day_id = params[:day]
   end
 
   def new
+    @day_id = params[:day]
     @day = current_user.days.new
   end
 
   def edit
+    @day_id = params[:day]
   end
 
   def create

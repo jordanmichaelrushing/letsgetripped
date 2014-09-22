@@ -6,14 +6,17 @@ class MealsController < ApplicationController
   end
 
   def show
+    @day_id = params[:day]
   end
 
   def new
+    @day_id = params[:day]
     @id = params[:id]
     @meal = current_user.meals.new
   end
 
   def edit
+    @day_id = params[:day]
   end
 
   def create

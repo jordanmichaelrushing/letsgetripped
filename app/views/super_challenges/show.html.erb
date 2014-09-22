@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Notes</strong>
-  <%= @super_challenge.notes %>
-</p>
+<% if @super_challenge.notes.present? %>
+  <p>
+    <strong>Notes</strong>
+    <%= @super_challenge.notes %>
+  </p>
+<% end %>
 <p>
   <strong>Push Ups</strong>
   <%= @super_challenge.push_ups %>
@@ -14,7 +15,7 @@
 </p>
 <p>
   <strong>Running Time</strong>
-  <%= @super_challenge.duration %>
+  <span id="duration"><%= @super_challenge.duration %></span>
 </p>
 <p>
   <strong>Running Distance</strong>
@@ -25,5 +26,35 @@
   <%= @super_challenge.times_walked %>
 </p>
 
+<br><br>
+
+<strong>Score:</strong>
+<%= @score %> Out Of 300 Points
+<br><br>
 <%= link_to 'Edit', edit_super_challenge_path(@super_challenge) %> |
-<%= link_to 'Home', root_path %>
+<%= link_to 'Back', day_path(@day_id) %>
+
+<script>
+if ($("#duration").text() != 0) {
+
+  var hours = parseInt($("#duration").text() / 60);
+  if (isNaN(hours)){
+    hours = 0;
+  }
+
+  var minutes = parseFloat($("#duration").text() / 60);
+  if (!isNaN(minutes)){
+    minutes = parseInt(60 * (minutes - hours));
+  } else {
+    minutes = 0;
+  }
+
+  var seconds = parseFloat(60 * (minutes - hours))
+  if (!isNaN(seconds)){
+    seconds = parseInt(60 * (seconds - parseInt(60 * (minutes - hours))));
+  } else {
+    seconds = 0;
+  }
+  $("#duration").text(hours + " Hours, " + minutes + " Minutes, " + seconds + " Seconds")
+}
+</script>
