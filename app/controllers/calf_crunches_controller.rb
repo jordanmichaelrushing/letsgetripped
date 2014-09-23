@@ -42,7 +42,7 @@ class CalfCrunchesController < ApplicationController
   def destroy
     @calf_crunch.destroy
     respond_to do |format|
-      format.html { redirect_to calf_crunches_url, notice: 'Calf crunch was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Calf crunch was successfully destroyed.' }
     end
   end
 

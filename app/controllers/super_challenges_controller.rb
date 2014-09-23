@@ -45,10 +45,8 @@ class SuperChallengesController < ApplicationController
     respond_to do |format|
       if @super_challenge.save
         format.html { redirect_to @super_challenge, notice: 'Super Challenge was successfully created.' }
-        format.json { render :show, status: :created, location: @super_challenge }
       else
         format.html { render :new }
-        format.json { render json: @super_challenge.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,10 +55,8 @@ class SuperChallengesController < ApplicationController
     respond_to do |format|
       if @super_challenge.update(super_challenge_params)
         format.html { redirect_to @super_challenge, notice: 'Super Challenge was successfully updated.' }
-        format.json { render :show, status: :ok, location: @super_challenge }
       else
         format.html { render :edit }
-        format.json { render json: @super_challenge.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,8 +64,7 @@ class SuperChallengesController < ApplicationController
   def destroy
     @super_challenge.destroy
     respond_to do |format|
-      format.html { redirect_to super_challenges_url, notice: 'Super Challenge was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to root_path, notice: 'Super Challenge was successfully destroyed.' }
     end
   end
 
