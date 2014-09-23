@@ -14,7 +14,7 @@
 
 <p>
   <strong>Calories:</strong>
-  <%= (@meal.fats * 9) + (@meal.carbs * 4) + (@meal.protein * 4) %>
+  <%= number_with_precision(((@meal.fats * 9) + (@meal.carbs * 4) + (@meal.protein * 4)),precision: 2) %>
 </p>
 
 <p>
