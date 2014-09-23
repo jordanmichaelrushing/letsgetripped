@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919210700) do
+ActiveRecord::Schema.define(version: 20140922211917) do
+
+  create_table "calf_crunches", force: true do |t|
+    t.boolean  "set_type",   default: false
+    t.integer  "set",        default: 0
+    t.integer  "reps",       default: 0
+    t.integer  "day_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cardios", force: true do |t|
     t.string   "name"
@@ -64,6 +74,16 @@ ActiveRecord::Schema.define(version: 20140919210700) do
     t.float    "cholesterol"
     t.float    "fiber"
     t.integer  "meal_number"
+    t.integer  "day_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pushups", force: true do |t|
+    t.integer  "set_one_reps"
+    t.integer  "set_two_reps"
+    t.string   "set_three_reps"
     t.integer  "day_id"
     t.integer  "user_id"
     t.datetime "created_at"

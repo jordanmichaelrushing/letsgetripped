@@ -13,6 +13,11 @@
 <% end %>
 
 <p>
+  <strong>Calories:</strong>
+  <%= (@meal.fats * 9) + (@meal.carbs * 4) + (@meal.protein * 4) %>
+</p>
+
+<p>
   <strong>Meal number:</strong>
   <%= @meal.meal_number %>
 </p>

@@ -1,0 +1,31 @@
+<% if @calf_crunch.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@calf_crunch.errors.count, "error") %> prohibited this calf_crunch from being saved:</h2>
+
+    <ul>
+    <% @calf_crunch.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="field">
+  <%= f.label "Calf Raise" %><br>
+  <%= radio_button_tag :set_type, "Calf", checked: @calf_crunch.set_type == "Calf" ? true : false%>
+</div>
+<div class="field">
+  <%= f.label :crunch %><br>
+  <%= radio_button_tag :set_type, "Crunch", checked: @calf_crunch.set_type == "Crunch" ? true : false %>
+</div>
+<div class="field">
+  <%= f.label :set %><br>
+  <%= f.number_field :set %>
+</div>
+<div class="field">
+  <%= f.label :reps %><br>
+  <%= f.number_field :reps %>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>

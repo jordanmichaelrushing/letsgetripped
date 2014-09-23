@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :pushups
+
+  resources :calf_crunches
+
   devise_for :users
   resources :meals
   root to: 'days#index'

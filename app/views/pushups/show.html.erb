@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Set One Reps:</strong>
+  <%= @pushup.set_one_reps %>
+</p>
+
+<p>
+  <strong>Set Two Reps:</strong>
+  <%= @pushup.set_two_reps %>
+</p>
+
+<p>
+  <strong>Set Three Reps:</strong>
+  <%= @pushup.set_three_reps %>
+</p>
+
+<%= link_to 'Edit', edit_pushup_path(@pushup) %> |
+<%= link_to 'Home', root_path %>

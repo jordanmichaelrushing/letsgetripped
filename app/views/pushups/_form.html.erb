@@ -1,0 +1,27 @@
+<% if @pushup.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@pushup.errors.count, "error") %> prohibited this pushup from being saved:</h2>
+
+    <ul>
+    <% @pushup.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="field">
+  <%= f.label :set_one_reps %><br>
+  <%= f.number_field :set_one_reps %>
+</div>
+<div class="field">
+  <%= f.label :set_two_reps %><br>
+  <%= f.number_field :set_two_reps %>
+</div>
+<div class="field">
+  <%= f.label :set_three_reps %><br>
+  <%= f.number_field :set_three_reps %>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>

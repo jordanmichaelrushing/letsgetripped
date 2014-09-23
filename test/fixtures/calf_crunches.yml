@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  calf: false
+  crunch: false
+  set: 1
+  reps: 1
+
+two:
+  calf: false
+  crunch: false
+  set: 1
+  reps: 1

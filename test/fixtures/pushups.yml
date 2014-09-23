@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  set_one_reps: 1
+  set_two_reps: 1
+  set_three_reps: MyString
+  day_id: 1
+  user_id: 1
+
+two:
+  set_one_reps: 1
+  set_two_reps: 1
+  set_three_reps: MyString
+  day_id: 1
+  user_id: 1

@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <% if @calf_crunch.set_type == "Calf" %> 
+    <strong>Calf Raises:</strong>
+  <% else %>
+    <strong>Crunches:</strong>
+  <% end %>
+</p>
+
+<p>
+  <strong>Set:</strong>
+  <%= @calf_crunch.set %>
+</p>
+
+<p>
+  <strong>Reps:</strong>
+  <%= @calf_crunch.reps %>
+</p>
+
+<%= link_to 'Edit', edit_calf_crunch_path(@calf_crunch) %> |
+<%= link_to 'Home', root_path %>

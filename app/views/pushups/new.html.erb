@@ -1,0 +1,8 @@
+<h1>New pushup</h1>
+
+<%= form_for(@pushup) do |f| %>
+  <%= f.hidden_field :day_id, value: @day_id %>
+  <%= render 'form', f: f %>
+<% end %>
+
+<%= link_to 'Home', root_path %>

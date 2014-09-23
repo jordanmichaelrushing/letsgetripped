@@ -39,13 +39,50 @@
               %strong
                 AMRAP TOTAL:
               = exercise.amrap_quantity
+  - if @day.calf_crunches.present?
+    .col-xs-12
+      %strong
+        Crunches/Calf Raises:
+      %br
+      - @day.calf_crunches.each do |calf_crunch|
+        .col-xs-3.height-selector.calf-height-selector{href: "#{calf_crunch_path(calf_crunch, day: @day.id)}"}
+          %strong
+            - if calf_crunch.set_type == "Calf"
+              = link_to Calf Set "#{calf_crunch.set}", calf_crunch
+            - else
+              = link_to "Crunch Set #{calf_crunch.set}", calf_crunch
+          %ul
+            %li
+              %strong
+                Reps:
+              = calf_crunch.reps
+  - if @day.pushups.present?
+    .col-xs-12{style: "padding-bottom:10px;"}
+      %strong
+        Push ups:
+      %br
+      - @day.pushups.each do |pushup|
+        .col-xs-3.height-selector.push-up-height-selector{href: "#{pushup_path(pushup, day: @day.id)}"}
+          %ul
+            %li
+              %strong
+                First Set Reps:
+              = pushup.set_one_reps
+            %li
+              %strong
+                Second Set Reps:
+              = pushup.set_two_reps
+            %li
+              %strong
+                Third Set Reps:
+              = pushup.set_three_reps
   - cardio = @day.cardio
   - if cardio.present?
-    .col-xs-12
+    .col-xs-12{style: "padding-bottom:10px;"}
       %strong
         = link_to cardio.name, cardio
       %br
-      %div.col-xs-3.height-selector{href: "#{cardio_path(cardio, day: @day.id)}"}
+      %div.col-xs-3.height-selector.cardio-height-selector{href: "#{cardio_path(cardio, day: @day.id)}"}
         %ul
           %li
             %strong
@@ -82,11 +119,11 @@
             = cardio.times_walked
   - challenge = @day.super_challenge
   - if challenge.present?
-    .col-xs-12
+    .col-xs-12{style: "padding-bottom:10px;"}
       %strong
         = link_to "Super Challenge", challenge
       %br
-      %div.col-xs-3.height-selector{href: "#{super_challenge_path(challenge, day: @day.id)}"}
+      %div.col-xs-3.height-selector.super_chall-height-selector{href: "#{super_challenge_path(challenge, day: @day.id)}"}
         %ul
           - if challenge.notes.present?
             %li 
@@ -114,7 +151,7 @@
               Times Walked:
             = challenge.times_walked
   - if @day.meals.present?
-    .col-xs-12
+    .col-xs-12{style: "padding-bottom:10px;"}
       %strong
         Meals
       %br
@@ -129,6 +166,10 @@
                 %strong
                   Notes:
                 = meal.notes
+            %li
+              %strong
+                Calories:
+              = (meal.fats * 9) + (meal.carbs * 4) + (meal.protein * 4)
             %li
               %strong
                 Meal number:
@@ -166,14 +207,18 @@
                 Protein:
               = meal.protein
 %strong.col-xs-12
-  .col-xs-3
+  .col-xs-2
     = link_to 'Add Exercise', new_exercise_path({day: @day.id})
-  .col-xs-3
+  .col-xs-2
     = link_to 'Add Cardio', new_cardio_path({day: @day.id})
-  .col-xs-3
+  .col-xs-2
     = link_to 'Add Meal', new_meal_path({day: @day.id})
-  .col-xs-3
+  .col-xs-2
     = link_to 'Add Super Challenge', new_super_challenge_path({day: @day.id})
+  .col-xs-2
+    = link_to 'Add Crunches/Calf Raises', new_calf_crunch_path({day: @day.id})
+  .col-xs-2
+    = link_to 'Add Pushups', new_pushup_path({day: @day.id})
   %br
   %br
   = link_to 'Edit', edit_day_path(@day)
