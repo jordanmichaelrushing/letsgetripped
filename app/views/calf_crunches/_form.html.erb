@@ -12,11 +12,11 @@
 
 <div class="field">
   <%= f.label "Calf Raise" %><br>
-  <%= radio_button_tag :set_type, "Calf", checked: @calf_crunch.set_type == "Calf" ? true : false%>
+  <%= radio_button_tag "calf_crunch[set_type]", "Calf", checked: @calf_crunch.set_type == "Calf" ? true : false%>
 </div>
 <div class="field">
   <%= f.label :crunch %><br>
-  <%= radio_button_tag :set_type, "Crunch", checked: @calf_crunch.set_type == "Crunch" ? true : false %>
+  <%= radio_button_tag "calf_crunch[set_type]", "Crunch", checked: @calf_crunch.set_type == "Crunch" ? true : false %>
 </div>
 <div class="field">
   <%= f.label :set %><br>
