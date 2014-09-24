@@ -70,6 +70,8 @@ class Day < ActiveRecord::Base
         else
           string +="<li>Super Challenge Duration Compared to previous week: No Challenge completed in prior week</li>"
         end
+      else
+        string +="<li><i>Super Challenge Not Completed This Week</i></li>"
       end
       string +="<li>Total Exercises Done: #{f.exercise_total}</li><li>Total Cardios Done: #{f.cardio_total}</li></ul></ul>"; string.html_safe}
   end
