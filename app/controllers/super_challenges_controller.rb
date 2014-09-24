@@ -7,7 +7,7 @@ class SuperChallengesController < ApplicationController
 
   def show
     if @super_challenge.duration
-      if @super_challenge.duration > 18
+      if @super_challenge.duration.to_i > 18
         time = 100 - ((@super_challenge.duration * 60 - 1080) / 10).to_i
         time = 0 if time < 0
       else
@@ -16,15 +16,15 @@ class SuperChallengesController < ApplicationController
     else
       time = 0
     end
-    if @super_challenge.push_ups >= 50
+    if @super_challenge.push_ups.to_i >= 50
       push_ups = 100
     else
-      push_ups = @super_challenge.push_ups * 2 || 0
+      push_ups = @super_challenge.push_ups.to_i * 2 || 0
     end
-    if @super_challenge.pull_ups >= 20
+    if @super_challenge.pull_ups.to_i >= 20
       pull_ups = 100
     else
-      pull_ups = @super_challenge.pull_ups * 5 || 0
+      pull_ups = @super_challenge.pull_ups.to_i * 5 || 0
     end
     @score = pull_ups + push_ups + time
   end
