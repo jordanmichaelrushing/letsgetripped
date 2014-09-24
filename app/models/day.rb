@@ -15,7 +15,7 @@ class Day < ActiveRecord::Base
     if Rails.env == "development"
       x =  x.group("week(date)")
     else
-      x = x.group("EXTRACT(WEEK FROM date)")
+      #x = x.group("EXTRACT(WEEK FROM date)")
     end
     return x.map{|f| ctr += 1; "<ul><strong>Week #{ctr}(#{f.date.beginning_of_week.strftime('%m/%d/%Y')}):</strong><ul><li>Total Calories: #{((f.fas * 9) + (f.cars * 4) + (f.prot * 4))}</li>
       <li>Total Meals Eaten: #{f.meal_total}</li><li>Average Calorie Per Meal: #{((f.fas * 9) + (f.cars * 4) + (f.prot * 4)) / f.meal_total}</li>
