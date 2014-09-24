@@ -18,8 +18,8 @@ class Day < ActiveRecord::Base
     #  x = x.group("EXTRACT(WEEK FROM date)")
     end
     return []#x.map{|f| ctr += 1; "<ul><strong>Week #{ctr}(#{f.date.beginning_of_week.strftime('%m/%d/%Y')}):</strong><ul><li>Total Calories: #{((f.fas * 9) + (f.cars * 4) + (f.prot * 4))}</li>
-      <li>Total Meals Eaten: #{f.meal_total}</li><li>Average Calorie Per Meal: #{((f.fas * 9) + (f.cars * 4) + (f.prot * 4)) / f.meal_total}</li>
-      <li>Total Exercises Done: #{f.exercise_total}</li><li>Total Cardios Done: #{f.cardio_total}</li></ul></ul>".html_safe}
+      #<li>Total Meals Eaten: #{f.meal_total}</li><li>Average Calorie Per Meal: #{((f.fas * 9) + (f.cars * 4) + (f.prot * 4)) / f.meal_total}</li>
+      #<li>Total Exercises Done: #{f.exercise_total}</li><li>Total Cardios Done: #{f.cardio_total}</li></ul></ul>".html_safe}
   end
 
 end
