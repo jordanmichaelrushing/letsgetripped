@@ -41,17 +41,21 @@
     </thead>
 
     <tbody>
-      <tr>
-        <% if @stats %>
-          <% @stats.each do |f| %>
+      <% if @stats %>
+        <% @stats.each do |f| %>
+          <tr>
             <td>
               <%= f %>
             </td>
-          <% end %>
-        <% else %>
-          No Stats Yet
+          </tr>
         <% end %>
-      </tr>
+      <% else %>
+        <tr>
+          <td>
+            No Stats Yet
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
