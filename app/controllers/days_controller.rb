@@ -3,6 +3,7 @@ class DaysController < ApplicationController
 
   def index
     @days = current_user.days.all.order("date desc")
+    @stats = Day.get_weekly_stats(current_user)
   end
 
   def show

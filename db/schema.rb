@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20140922211917) do
 
   create_table "calf_crunches", force: true do |t|
-    t.boolean  "set_type",   default: false
+    t.string   "set_type",   default: "Crunch"
     t.integer  "set",        default: 0
     t.integer  "reps",       default: 0
     t.integer  "day_id"
@@ -26,12 +26,12 @@ ActiveRecord::Schema.define(version: 20140922211917) do
   create_table "cardios", force: true do |t|
     t.string   "name"
     t.string   "notes"
-    t.float    "duration"
-    t.float    "distance"
-    t.float    "sixty_percent_speed"
-    t.float    "eighty_percent_speed"
-    t.float    "ninety_percent_speed"
-    t.float    "one_hundred_percent_speed"
+    t.float    "duration",                  limit: 24
+    t.float    "distance",                  limit: 24
+    t.float    "sixty_percent_speed",       limit: 24
+    t.float    "eighty_percent_speed",      limit: 24
+    t.float    "ninety_percent_speed",      limit: 24
+    t.float    "one_hundred_percent_speed", limit: 24
     t.integer  "times_walked"
     t.integer  "day_id"
     t.integer  "user_id"
@@ -51,10 +51,10 @@ ActiveRecord::Schema.define(version: 20140922211917) do
     t.string   "notes"
     t.string   "name"
     t.string   "img_url"
-    t.float    "set_one_weight"
-    t.float    "set_two_weight"
-    t.float    "set_three_weight"
-    t.float    "set_four_weight"
+    t.float    "set_one_weight",   limit: 24
+    t.float    "set_two_weight",   limit: 24
+    t.float    "set_three_weight", limit: 24
+    t.float    "set_four_weight",  limit: 24
     t.integer  "amrap_quantity"
     t.integer  "day_id"
     t.integer  "user_id"
@@ -65,14 +65,14 @@ ActiveRecord::Schema.define(version: 20140922211917) do
   create_table "meals", force: true do |t|
     t.string   "name"
     t.string   "notes"
-    t.float    "protein"
-    t.float    "carbs"
-    t.float    "fats"
-    t.float    "sugar"
-    t.float    "sodium"
-    t.float    "saturated_fats"
-    t.float    "cholesterol"
-    t.float    "fiber"
+    t.float    "protein",        limit: 24
+    t.float    "carbs",          limit: 24
+    t.float    "fats",           limit: 24
+    t.float    "sugar",          limit: 24
+    t.float    "sodium",         limit: 24
+    t.float    "saturated_fats", limit: 24
+    t.float    "cholesterol",    limit: 24
+    t.float    "fiber",          limit: 24
     t.integer  "meal_number"
     t.integer  "day_id"
     t.integer  "user_id"
@@ -92,10 +92,10 @@ ActiveRecord::Schema.define(version: 20140922211917) do
 
   create_table "super_challenges", force: true do |t|
     t.string   "notes"
-    t.float    "push_ups"
-    t.float    "pull_ups"
-    t.float    "duration"
-    t.float    "distance"
+    t.float    "push_ups",     limit: 24
+    t.float    "pull_ups",     limit: 24
+    t.float    "duration",     limit: 24
+    t.float    "distance",     limit: 24
     t.integer  "times_walked"
     t.integer  "day_id"
     t.integer  "user_id"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20140922211917) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
