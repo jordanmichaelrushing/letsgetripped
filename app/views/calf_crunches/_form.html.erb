@@ -19,8 +19,8 @@
   <%= radio_button_tag "calf_crunch[set_type]", "Crunch", checked: @calf_crunch.set_type == "Crunch" ? true : false %>
 </div>
 <div class="field">
-  <%= f.label :set %><br>
-  <%= f.number_field :set %>
+  <%= f.label "Set Number" %><br>
+  <%= f.number_field :set_num %>
 </div>
 <div class="field">
   <%= f.label :reps %><br>

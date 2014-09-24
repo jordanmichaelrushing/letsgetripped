@@ -22,9 +22,3 @@ development:
 test:
   <<: *default
   database: jordanripped_test
-
-production:
-  <<: *default
-  database: jordanripped_production
-  username: jordanripped
-  password: <%= ENV['TESTED_DATABASE_PASSWORD'] %>

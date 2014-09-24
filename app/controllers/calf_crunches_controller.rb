@@ -52,6 +52,6 @@ class CalfCrunchesController < ApplicationController
     end
 
     def calf_crunch_params
-      params.require(:calf_crunch).permit(:type, :set, :reps, :day_id, :set_type)
+      params.require(:calf_crunch).permit(:type, :set_num, :reps, :day_id, :set_type)
     end
 end

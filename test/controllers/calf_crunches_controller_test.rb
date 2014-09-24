@@ -18,7 +18,7 @@ class CalfCrunchesControllerTest < ActionController::TestCase
 
   test "should create calf_crunch" do
     assert_difference('CalfCrunch.count') do
-      post :create, calf_crunch: { calf: @calf_crunch.calf, crunch: @calf_crunch.crunch, reps: @calf_crunch.reps, set: @calf_crunch.set }
+      post :create, calf_crunch: { calf: @calf_crunch.calf, crunch: @calf_crunch.crunch, reps: @calf_crunch.reps, set_num: @calf_crunch.set_num }
     end
 
     assert_redirected_to calf_crunch_path(assigns(:calf_crunch))
@@ -35,7 +35,7 @@ class CalfCrunchesControllerTest < ActionController::TestCase
   end
 
   test "should update calf_crunch" do
-    patch :update, id: @calf_crunch, calf_crunch: { calf: @calf_crunch.calf, crunch: @calf_crunch.crunch, reps: @calf_crunch.reps, set: @calf_crunch.set }
+    patch :update, id: @calf_crunch, calf_crunch: { calf: @calf_crunch.calf, crunch: @calf_crunch.crunch, reps: @calf_crunch.reps, set_num: @calf_crunch.set_num }
     assert_redirected_to calf_crunch_path(assigns(:calf_crunch))
   end
 

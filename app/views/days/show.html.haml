@@ -64,9 +64,9 @@
         .col-xs-3.height-selector.calf-height-selector{href: "#{calf_crunch_path(calf_crunch, day: @day.id)}"}
           %strong
             - if calf_crunch.set_type == "Calf"
-              = link_to "Calf Set #{calf_crunch.set}", calf_crunch
+              = link_to "Calf Set #{calf_crunch.set_num}", calf_crunch
             - else
-              = link_to "Crunch Set #{calf_crunch.set}", calf_crunch
+              = link_to "Crunch Set #{calf_crunch.set_num}", calf_crunch
           %ul
             %li
               %strong
