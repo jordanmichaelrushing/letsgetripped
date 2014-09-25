@@ -32,7 +32,7 @@ class Day < ActiveRecord::Base
 
       if challenged
         challenges = sums[challenged]
-        if challenges && challenges.duration
+        if challenges
           # n + 1 issue that eventually needs to be fixed
           challenge = SuperChallenge.select("duration,push_ups,pull_ups, WEEK(days.date) as days").joins("JOIN days on days.id = super_challenges.day_id")
                       .where("duration IS NOT NULL AND days.user_id = #{current_user.id} AND (WEEK(days.date) = #{(challenges.date - 1.week).strftime('%U')})").first
