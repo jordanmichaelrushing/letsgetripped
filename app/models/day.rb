@@ -17,7 +17,7 @@ class Day < ActiveRecord::Base
           .group("week(date)")
 
     sums = current_user.days.select("DISTINCT(date),super_challenges.duration as duration,super_challenges.push_ups as push_ups, super_challenges.pull_ups as pull_ups").group("week(date)")
-           .joins("LEFT JOIN super_challenges on super_challenges.day_id = days.id AND super_challenges.user_id = #{current_user.id}")
+           .joins("LEFT JOIN super_challenges on super_challenges.day_id = days.id AND super_challenges.user_id = #{current_user.id}").where("duration IS NOT NULL")
     y=x.map do |f|
       ctr += 1
       string = "<ul><strong>Week #{ctr}(#{f.date.beginning_of_week.strftime('%m/%d/%Y')}):</strong><ul>"
