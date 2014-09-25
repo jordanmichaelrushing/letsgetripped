@@ -2,7 +2,7 @@ class SuperChallengesController < ApplicationController
   before_action :set_super_challenge, only: [:show, :edit, :update, :destroy]
 
   def index
-    @super_challenges = current_user.super_challenge.all
+    @super_challenges = current_user.super_challenges.all
   end
 
   def show
@@ -31,9 +31,9 @@ class SuperChallengesController < ApplicationController
 
   def new
     @day_id = params[:day]
-    @date = Day.find @day_id
+    @date = Day.find(@day_id).date
     @id = params[:id]
-    @super_challenge = current_user.super_challenge.new
+    @super_challenge = current_user.super_challenges.new
   end
 
   def edit
@@ -41,7 +41,7 @@ class SuperChallengesController < ApplicationController
   end
 
   def create
-    @super_challenge = current_user.super_challenge.new(super_challenge_params)
+    @super_challenge = current_user.super_challenges.new(super_challenge_params)
 
     respond_to do |format|
       if @super_challenge.save
