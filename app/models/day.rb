@@ -37,14 +37,6 @@ class Day < ActiveRecord::Base
           challenge = SuperChallenge.select("duration,push_ups,pull_ups, WEEK(days.date) as days").joins("JOIN days on days.id = super_challenges.day_id")
                       .where("duration IS NOT NULL AND days.user_id = #{current_user.id} AND (WEEK(days.date) = #{(challenges.date - 1.week).strftime('%U')})").first
           if challenge
-            Rails.logger.info "challenges.duration"
-            Rails.logger.info "challenge.duration"
-            Rails.logger.info challenges.duration.class
-            Rails.logger.info challenges.date
-            Rails.logger.info challenges.pull_ups
-            Rails.logger.info challenge.duration
-            Rails.logger.info "challenges.duration"
-            Rails.logger.info "challenge.duration"
             string +="<li>Super Challenge Duration Compared to previous week: <ul><li>#{(challenges.duration - challenge.duration).round(2)} minutes</li><li>#{score(challenges) - score(challenge)} points</li></ul></li>"
           else
             string +="<li>Super Challenge Duration Compared to previous week: No Challenge completed in prior week</li>"
