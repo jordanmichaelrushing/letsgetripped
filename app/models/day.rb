@@ -40,6 +40,8 @@ class Day < ActiveRecord::Base
             Rails.logger.info "challenges.duration"
             Rails.logger.info "challenge.duration"
             Rails.logger.info challenges.duration
+            Rails.logger.info challenges.date
+            Rails.logger.info challenges.pull_ups
             Rails.logger.info challenge.duration
             Rails.logger.info "challenges.duration"
             Rails.logger.info "challenge.duration"
