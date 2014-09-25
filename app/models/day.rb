@@ -39,7 +39,7 @@ class Day < ActiveRecord::Base
           if challenge
             Rails.logger.info "challenges.duration"
             Rails.logger.info "challenge.duration"
-            Rails.logger.info challenges.duration
+            Rails.logger.info challenges.duration.class
             Rails.logger.info challenges.date
             Rails.logger.info challenges.pull_ups
             Rails.logger.info challenge.duration
