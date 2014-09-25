@@ -32,12 +32,16 @@ class Day < ActiveRecord::Base
 
       if challenged
         challenges = sums[challenged]
-        challenge = SuperChallenge.select("duration,push_ups,pull_ups, WEEK(days.date) as days").joins("JOIN days on days.id = super_challenges.day_id")
-                    .where("days.user_id = #{current_user.id} AND (WEEK(days.date) = #{(challenges.date - 1.week).strftime('%U')})").first
-        if challenge
-          string +="<li>Super Challenge Duration Compared to previous week: <ul><li>#{(challenges.duration - challenge.duration).round(2)} minutes</li><li>#{score(challenges) - score(challenge)} points</li></ul></li>"
+        if challenges
+          challenge = SuperChallenge.select("duration,push_ups,pull_ups, WEEK(days.date) as days").joins("JOIN days on days.id = super_challenges.day_id")
+                      .where("days.user_id = #{current_user.id} AND (WEEK(days.date) = #{(challenges.date - 1.week).strftime('%U')})").first
+          if challenge
+            string +="<li>Super Challenge Duration Compared to previous week: <ul><li>#{(challenges.duration - challenge.duration).round(2)} minutes</li><li>#{score(challenges) - score(challenge)} points</li></ul></li>"
+          else
+            string +="<li>Super Challenge Duration Compared to previous week: No Challenge completed in prior week</li>"
+          end
         else
-          string +="<li>Super Challenge Duration Compared to previous week: No Challenge completed in prior week</li>"
+          string +="<li><i>Super Challenge Not Completed This Week</i></li>"
         end
       else
         string +="<li><i>Super Challenge Not Completed This Week</i></li>"
