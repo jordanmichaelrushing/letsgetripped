@@ -31,6 +31,7 @@ class SuperChallengesController < ApplicationController
 
   def new
     @day_id = params[:day]
+    @date = Day.find @day_id
     @id = params[:id]
     @super_challenge = current_user.super_challenge.new
   end
@@ -74,6 +75,6 @@ class SuperChallengesController < ApplicationController
     end
 
     def super_challenge_params
-      params.require(:super_challenge).permit(:day_id, :notes, :push_ups, :pull_ups, :duration, :distance, :times_walked)
+      params.require(:super_challenge).permit(:day_id, :date, :notes, :push_ups, :pull_ups, :duration, :distance, :times_walked)
     end
 end

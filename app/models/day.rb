@@ -16,12 +16,20 @@ class Day < ActiveRecord::Base
           .joins("LEFT JOIN meals on meals.day_id = days.id AND meals.user_id = #{current_user.id}")
           .group("week(date)")
 
-    sums = current_user.days.select("DISTINCT(date),super_challenges.duration as duration,super_challenges.push_ups as push_ups, super_challenges.pull_ups as pull_ups").group("week(date)")
-           .joins("LEFT JOIN super_challenges on super_challenges.day_id = days.id AND super_challenges.user_id = #{current_user.id}").where("duration IS NOT NULL")
-    y=x.map do |f|
+    sums = current_user.super_challenges.select("DISTINCT(super_challenges.date) AS date, previous_sc.date AS previous_sc_date,super_challenges.duration AS duration,
+              super_challenges.push_ups AS push_ups, super_challenges.pull_ups AS pull_ups, previous_sc.duration AS previous_sc_duration, 
+              previous_sc.push_ups AS previous_sc_push_ups,previous_sc.pull_ups AS previous_sc_pull_ups")
+              .joins("LEFT OUTER JOIN super_challenges AS previous_sc ON previous_sc.user_id = #{current_user.id} AND WEEK(previous_sc.date) = (WEEK(super_challenges.date) - 1)")
+              .where("super_challenges.user_id = 1 AND super_challenges.duration IS NOT NULL")
+              .group("WEEK(super_challenges.date)")
+              .order("WEEK(super_challenges.date)")
+    this_challenge_array = sums.pluck(:date).map{|f| f.beginning_of_week if f}
+    prev_challenge_array = sums.pluck("previous_sc.date").map{|f| f.beginning_of_week if f}
+    x.map do |f|
       ctr += 1
       string = "<ul><strong>Week #{ctr}(#{f.date.beginning_of_week.strftime('%m/%d/%Y')}):</strong><ul>"
-      challenged = sums.map{|i| i.date.beginning_of_week}.index(f.date.beginning_of_week)
+      this_challenge = this_challenge_array.index(f.date.beginning_of_week)
+      prev_challenge = prev_challenge_array.index(f.date.beginning_of_week - 1.week)
       fats = f.fats || 0
       carbs = f.carbs || 0
       protein = f.protein || 0
@@ -30,27 +38,23 @@ class Day < ActiveRecord::Base
         string +="<li>Average Calorie Per Meal: #{(((fats * 9) + (carbs * 4) + (protein * 4)) / f.meal_total).round(2)}</li>"
       end
 
-      if challenged
-        challenges = sums[challenged]
-        if challenges
-          # n + 1 issue that eventually needs to be fixed
-          challenge = SuperChallenge.select("duration,push_ups,pull_ups, WEEK(days.date) as days").joins("JOIN days on days.id = super_challenges.day_id")
-                      .where("duration IS NOT NULL AND days.user_id = #{current_user.id} AND (WEEK(days.date) = #{(challenges.date - 1.week).strftime('%U')})").first
-          if challenge
-            string +="<li>Super Challenge Duration Compared to previous week: <ul><li>#{(challenges.duration - challenge.duration).round(2)} minutes</li><li>#{score(challenges) - score(challenge)} points</li></ul></li>"
-          else
-            string +="<li>Super Challenge Duration Compared to previous week: No Challenge completed in prior week</li>"
-          end
-        else
-          string +="<li><i>Super Challenge Not Completed This Week</i></li>"
+      if this_challenge # if there was a SC this week
+        this_challenges = sums[this_challenge]
+        if prev_challenge # If there was a SC this week and last week
+          prev_challenges = sums[prev_challenge]
+          string += "<li>Super Challenge Comparison to previous week: <ul><li>#{(this_challenges.duration - prev_challenges.previous_sc_duration).round(2)} minutes</li><li>#{score(this_challenges) - old_score(prev_challenges)} points</li></ul></li>"
+        else # If there was a SC this week but not last week
+          string += "<li><i>No Challenge completed in prior week</i></li>"
         end
+      elsif prev_challenge # This week no SC but last week there was
+        challenges = sums[prev_challenge]
+        string +="<li><i>Super Challenge Not Completed This Week but there was one last week</i></li>"
       else
         string +="<li><i>Super Challenge Not Completed This Week</i></li>"
       end
       string +="<li>Total Exercises Done: #{f.exercise_total}</li><li>Total Cardios Done: #{f.cardio_total}</li></ul></ul>"
       string.html_safe
     end
-    y
   end
 
   def self.score(type)
@@ -73,6 +77,30 @@ class Day < ActiveRecord::Base
       new_pull_ups = 100
     else
       new_pull_ups = type.pull_ups.to_i * 5 || 0
+    end
+    return (new_pull_ups + new_push_ups + new_time)
+  end
+
+  def self.old_score(type)
+    if type.duration
+      if type.previous_sc_duration.to_i > 18
+        new_time = 100 - ((type.previous_sc_duration * 60 - 1080) / 10).to_i
+        new_time = 0 if new_time < 0
+      else
+        new_time = 100
+      end
+    else
+      new_time = 0
+    end
+    if type.previous_sc_push_ups.to_i >= 50
+      new_push_ups = 100
+    else
+      new_push_ups = type.previous_sc_push_ups.to_i * 2 || 0
+    end
+    if type.previous_sc_pull_ups.to_i >= 20
+      new_pull_ups = 100
+    else
+      new_pull_ups = type.previous_sc_pull_ups.to_i * 5 || 0
     end
     return (new_pull_ups + new_push_ups + new_time)
   end

@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922211917) do
+ActiveRecord::Schema.define(version: 20140925132114) do
 
   create_table "calf_crunches", force: true do |t|
     t.string   "set_type",   default: "Crunch"
-    t.integer  "set",        default: 0
+    t.integer  "set_num",    default: 0
     t.integer  "reps",       default: 0
     t.integer  "day_id"
     t.integer  "user_id"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20140922211917) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "date"
   end
 
   create_table "users", force: true do |t|

@@ -2,6 +2,7 @@
 
 <%= form_for(@super_challenge) do |f| %>
   <%= f.hidden_field :day_id, value: @day_id %>
+  <%= f.hidden_field :date, value: @date %>
   <%= render 'form', f: f %>
 <% end %>
 
