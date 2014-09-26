@@ -1,60 +1,59 @@
+<% if @meal.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@meal.errors.count, "error") %> prohibited this meal from being saved:</h2>
 
-  <% if @meal.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@meal.errors.count, "error") %> prohibited this meal from being saved:</h2>
+    <ul>
+    <% @meal.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
-      <ul>
-      <% @meal.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label "Meal Name?" %><br>
-    <%= f.select :name, options_for_select([["Breakfast","Breakfast"], ["Snack 1", "Snack 1"], ["Lunch","Lunch"], ["Snack 2","Snack 2"], ["Dinner","Dinner"], ["Snack 3","Snack 3"], ["Cheat Meal","Cheat Meal"]]) %>
-  </div>
-  <div class="field">
-    <%= f.label "What did you eat?" %><br>
-    <%= f.text_field :notes %>
-  </div>
-  <div class="field">
-    <%= f.label "Meal Number?" %><br>
-    <%= f.number_field :meal_number, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="field">
-    <%= f.label :fats %><br>
-    <%= f.number_field :fats, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="field">
-    <%= f.label :saturated_fats %><br>
-    <%= f.number_field :saturated_fats, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="field">
-    <%= f.label :cholesterol %><br>
-    <%= f.number_field :cholesterol, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="field">
-    <%= f.label :sodium %><br>
-    <%= f.number_field :sodium, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="field">
-    <%= f.label :carbs %><br>
-    <%= f.number_field :carbs, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="field">
-    <%= f.label :fiber %><br>
-    <%= f.number_field :fiber, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="field">
-    <%= f.label :sugar %><br>
-    <%= f.number_field :sugar, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="field">
-    <%= f.label :protein %><br>
-    <%= f.number_field :protein, step: 'any', style: "width:100px" %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="field">
+  <%= f.label "Meal Name?" %><br>
+  <%= f.select :name, options_for_select([["Breakfast","Breakfast"], ["Snack 1", "Snack 1"], ["Lunch","Lunch"], ["Snack 2","Snack 2"], ["Dinner","Dinner"], ["Snack 3","Snack 3"], ["Cheat Meal","Cheat Meal"]]) %>
+</div>
+<div class="field">
+  <%= f.label "What did you eat?" %><br>
+  <%= f.text_field :notes %>
+</div>
+<div class="field">
+  <%= f.label "Meal Number?" %><br>
+  <%= f.number_field :meal_number, step: 'any', style: "width:100px" %>
+</div>
+<div class="field">
+  <%= f.label :fats %><br>
+  <%= f.number_field :fats, step: 'any', style: "width:100px" %>
+</div>
+<div class="field">
+  <%= f.label :saturated_fats %><br>
+  <%= f.number_field :saturated_fats, step: 'any', style: "width:100px" %>
+</div>
+<div class="field">
+  <%= f.label :cholesterol %><br>
+  <%= f.number_field :cholesterol, step: 'any', style: "width:100px" %>
+</div>
+<div class="field">
+  <%= f.label :sodium %><br>
+  <%= f.number_field :sodium, step: 'any', style: "width:100px" %>
+</div>
+<div class="field">
+  <%= f.label :carbs %><br>
+  <%= f.number_field :carbs, step: 'any', style: "width:100px" %>
+</div>
+<div class="field">
+  <%= f.label :fiber %><br>
+  <%= f.number_field :fiber, step: 'any', style: "width:100px" %>
+</div>
+<div class="field">
+  <%= f.label :sugar %><br>
+  <%= f.number_field :sugar, step: 'any', style: "width:100px" %>
+</div>
+<div class="field">
+  <%= f.label :protein %><br>
+  <%= f.number_field :protein, step: 'any', style: "width:100px" %>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>

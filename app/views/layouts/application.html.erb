@@ -2,7 +2,7 @@
 <html>
   <head>
     <% if current_user %>
-      <title><%= current_user.name%>Ripped</title>
+      <title><%= current_user.name%>Ripped <%= yield(:title) %></title>
     <% else %>
       <title>Let's Get Ripped</title>
     <% end %>
