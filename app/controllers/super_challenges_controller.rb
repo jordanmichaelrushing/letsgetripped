@@ -32,7 +32,6 @@ class SuperChallengesController < ApplicationController
   def new
     @day_id = params[:day]
     @date = Day.find(@day_id).date
-    @id = params[:id]
     @super_challenge = current_user.super_challenges.new
   end
 

@@ -10,7 +10,6 @@ class CardiosController < ApplicationController
 
   def new
     @day_id = params[:day]
-    @id = params[:id]
     @cardio = current_user.cardios.new
   end
 

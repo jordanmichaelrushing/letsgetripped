@@ -10,7 +10,6 @@ class ExercisesController < ApplicationController
 
   def new
     @day_id = params[:day]
-    @id = params[:id]
     @exercise = current_user.exercises.new
   end
 

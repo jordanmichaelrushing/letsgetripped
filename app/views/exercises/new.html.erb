@@ -1,5 +1,4 @@
 <h1>New Exercise</h1>
-(If the exercise is a random one like calf raises amrap, IE: Doesn't follow the 15-12-10-8 rule, just put the info in the notes. I'm going to make a "Random Exercise page soon")
 <%= form_for(@exercise) do |f| %>
   <%= f.hidden_field :day_id, value: @day_id %>
   <%= render 'form', f: f %>

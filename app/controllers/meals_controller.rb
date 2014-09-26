@@ -10,7 +10,6 @@ class MealsController < ApplicationController
 
   def new
     @day_id = params[:day]
-    @id = params[:id]
     @meal = current_user.meals.new
   end
 
