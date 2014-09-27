@@ -17,26 +17,26 @@
 </div>
 <div class="field">
   <%= f.label "Push Ups (Quantity Only)" %><br>
-  <%= f.text_field :push_ups, step: 'any' %>
+  <%= f.number_field :push_ups, step: 'any' %>
 </div>
 <div class="field">
   <%= f.label "Pull Ups (Quantity Only)" %><br>
-  <%= f.text_field :pull_ups, step: 'any' %>
+  <%= f.number_field :pull_ups, step: 'any' %>
 </div>
 <div class="field">
   <%= f.label "Duration (Hours-Minutes-Seconds)" %><br>
   <%= f.hidden_field :duration, step: 'any' %>
-  <%= text_field_tag 'hours', 0, {style: "width: 50px;"} %> - 
-  <%= text_field_tag 'minutes', 0, {style: "width: 50px;"} %> - 
-  <%= text_field_tag 'seconds', 0, {style: "width: 50px;"} %>
+  <%= number_field_tag 'hours', 0, {style: "width: 50px;"} %> - 
+  <%= number_field_tag 'minutes', 0, {style: "width: 50px;"} %> - 
+  <%= number_field_tag 'seconds', 0, {style: "width: 50px;"} %>
 </div>
 <div class="field">
-  <%= f.label "Distance (Quantity Only)" %><br>
-  <%= f.text_field :distance, step: 'any' %>
+  <%= f.label "Distance in miles (Quantity Only)" %><br>
+  <%= f.number_field :distance, step: 'any' %>
 </div>
 <div class="field">
   <%= f.label "Times Walked" %><br>
-  <%= f.text_field :times_walked, step: 'any' %>
+  <%= f.number_field :times_walked, step: 'any' %>
 </div>
 
 <div class="actions">
