@@ -9,27 +9,18 @@ class Day < ActiveRecord::Base
 
   def self.get_weekly_stats(current_user)
     ctr = 0
-    x = Day.select("DISTINCT(date) as date, COUNT(DISTINCT(exercises.id)) as exercise_total,COUNT(DISTINCT(cardios.id)) as cardio_total,
-          COUNT(DISTINCT(meals.id)) as meal_total,SUM(meals.protein) as protein, SUM(meals.carbs) as carbs, SUM(meals.fats) as fats")
+    x = Day.select("days. id,days.date as date, COUNT(DISTINCT(exercises.id)) as exercise_total,COUNT(DISTINCT(cardios.id)) as cardio_total,COUNT(DISTINCT(meals.id)) as meal_total,SUM(meals.protein) as protein, SUM(meals.carbs) as carbs, SUM(meals.fats) as fats,super_challenges.id AS sc_id, previous_sc.id AS previous_sc_id, super_challenges.date AS sc_date, previous_sc.date AS previous_sc_date,super_challenges.duration AS duration,super_challenges.push_ups AS push_ups, super_challenges.pull_ups AS pull_ups, previous_sc.duration AS previous_sc_duration, previous_sc.push_ups AS previous_sc_push_ups,previous_sc.pull_ups AS previous_sc_pull_ups")
           .joins("LEFT JOIN exercises on exercises.day_id = days.id AND exercises.user_id = #{current_user.id}")
           .joins("LEFT JOIN cardios on cardios.day_id = days.id AND cardios.user_id = #{current_user.id}")
           .joins("LEFT JOIN meals on meals.day_id = days.id AND meals.user_id = #{current_user.id}")
-          .group("week(date)")
+          .joins("LEFT OUTER JOIN super_challenges ON super_challenges.user_id = #{current_user.id} AND WEEK(super_challenges.date) = WEEK(days.date)")
+          .joins("LEFT OUTER JOIN super_challenges AS previous_sc ON previous_sc.user_id = #{current_user.id} AND WEEK(previous_sc.date) = (WEEK(days.date) - 1)")
+          .group("week(days.date)")
+          .order("WEEK(days.date)")
 
-    sums = current_user.super_challenges.select("DISTINCT(super_challenges.date) AS date, previous_sc.date AS previous_sc_date,super_challenges.duration AS duration,
-              super_challenges.push_ups AS push_ups, super_challenges.pull_ups AS pull_ups, previous_sc.duration AS previous_sc_duration, 
-              previous_sc.push_ups AS previous_sc_push_ups,previous_sc.pull_ups AS previous_sc_pull_ups")
-              .joins("LEFT OUTER JOIN super_challenges AS previous_sc ON previous_sc.user_id = #{current_user.id} AND WEEK(previous_sc.date) = (WEEK(super_challenges.date) - 1)")
-              .where("super_challenges.user_id = #{current_user.id} AND super_challenges.duration IS NOT NULL")
-              .group("WEEK(super_challenges.date)")
-              .order("WEEK(super_challenges.date)")
-    this_challenge_array = sums.pluck(:date).map{|f| f.beginning_of_week if f}
-    prev_challenge_array = sums.pluck("previous_sc.date").map{|f| f.beginning_of_week if f}
-    x.map do |f|
+    stats = x.map do |f|
       ctr += 1
       string = "<ul><strong>Week #{ctr}(#{f.date.beginning_of_week.strftime('%m/%d/%Y')}):</strong><ul>"
-      this_challenge = this_challenge_array.index(f.date.beginning_of_week)
-      prev_challenge = prev_challenge_array.index(f.date.beginning_of_week - 1.week)
       fats = f.fats || 0
       carbs = f.carbs || 0
       protein = f.protein || 0
@@ -38,16 +29,13 @@ class Day < ActiveRecord::Base
         string +="<li>Average Calorie Per Meal: #{(((fats * 9) + (carbs * 4) + (protein * 4)) / f.meal_total).round(2)}</li>"
       end
 
-      if this_challenge # if there was a SC this week
-        this_challenges = sums[this_challenge]
-        if prev_challenge # If there was a SC this week and last week
-          prev_challenges = sums[prev_challenge]
-          string += "<li>Super Challenge Comparison to previous week: <ul><li>#{(this_challenges.duration - prev_challenges.previous_sc_duration).round(2)} minutes</li><li>#{score(this_challenges) - old_score(prev_challenges)} points</li></ul></li>"
+      if f.sc_id # if there was a SC this week
+        if f.previous_sc_id # If there was a SC this week and last week
+          string += "<li>Super Challenge Comparison to previous week: <ul><li>#{(f.duration - f.previous_sc_duration).round(2)} minutes</li><li>#{score(f) - old_score(f)} points</li></ul></li>"
         else # If there was a SC this week but not last week
           string += "<li><i>No Challenge completed in prior week</i></li>"
         end
-      elsif prev_challenge # This week no SC but last week there was
-        challenges = sums[prev_challenge]
+      elsif f.previous_sc_id # This week no SC but last week there was
         string +="<li><i>Super Challenge Not Completed This Week but there was one last week</i></li>"
       else
         string +="<li><i>Super Challenge Not Completed This Week</i></li>"
@@ -55,6 +43,7 @@ class Day < ActiveRecord::Base
       string +="<li>Total Exercises Done: #{f.exercise_total}</li><li>Total Cardios Done: #{f.cardio_total}</li></ul></ul>"
       string.html_safe
     end
+    return {days: x, stats: stats}
   end
 
   def self.score(type)
@@ -82,7 +71,7 @@ class Day < ActiveRecord::Base
   end
 
   def self.old_score(type)
-    if type.duration
+    if type.previous_sc_duration
       if type.previous_sc_duration.to_i > 18
         new_time = 100 - ((type.previous_sc_duration * 60 - 1080) / 10).to_i
         new_time = 0 if new_time < 0

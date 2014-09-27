@@ -2,7 +2,6 @@ class DaysController < ApplicationController
   before_action :set_day, only: [:show, :edit, :update, :destroy]
 
   def index
-    @days = current_user.days.all.order("date desc")
     @stats = Day.get_weekly_stats(current_user)
   end
 

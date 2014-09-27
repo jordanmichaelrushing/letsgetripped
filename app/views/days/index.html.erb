@@ -18,7 +18,7 @@
     </thead>
 
     <tbody>
-      <% @days.each do |day| %>
+      <% @stats[:days].each do |day| %>
         <tr>
           <td><%= link_to day.date.strftime("%b %d, %Y"), day %></td>
           <td>&nbsp; | &nbsp;</td>
@@ -42,8 +42,8 @@
     </thead>
 
     <tbody>
-      <% if @stats %>
-        <% @stats.each do |f| %>
+      <% if @stats[:stats] %>
+        <% @stats[:stats].each do |f| %>
           <tr>
             <td>
               <%= f %>
