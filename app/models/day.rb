@@ -9,7 +9,7 @@ class Day < ActiveRecord::Base
 
   def self.get_weekly_stats(current_user)
     ctr = 0
-    x = Day.select("days. id,days.date as date, COUNT(DISTINCT(exercises.id)) as exercise_total,COUNT(DISTINCT(cardios.id)) as cardio_total,COUNT(DISTINCT(meals.id)) as meal_total,SUM(meals.protein) as protein, SUM(meals.carbs) as carbs, SUM(meals.fats) as fats,super_challenges.id AS sc_id, previous_sc.id AS previous_sc_id, super_challenges.date AS sc_date, previous_sc.date AS previous_sc_date,super_challenges.duration AS duration,super_challenges.push_ups AS push_ups, super_challenges.pull_ups AS pull_ups, previous_sc.duration AS previous_sc_duration, previous_sc.push_ups AS previous_sc_push_ups,previous_sc.pull_ups AS previous_sc_pull_ups")
+    x = Day.select("days.date as date, COUNT(DISTINCT(exercises.id)) as exercise_total,COUNT(DISTINCT(cardios.id)) as cardio_total,COUNT(DISTINCT(meals.id)) as meal_total,SUM(meals.protein) as protein, SUM(meals.carbs) as carbs, SUM(meals.fats) as fats,super_challenges.id AS sc_id, previous_sc.id AS previous_sc_id, super_challenges.date AS sc_date, previous_sc.date AS previous_sc_date,super_challenges.duration AS duration,super_challenges.push_ups AS push_ups, super_challenges.pull_ups AS pull_ups, previous_sc.duration AS previous_sc_duration, previous_sc.push_ups AS previous_sc_push_ups,previous_sc.pull_ups AS previous_sc_pull_ups")
           .joins("LEFT JOIN exercises on exercises.day_id = days.id AND exercises.user_id = #{current_user.id}")
           .joins("LEFT JOIN cardios on cardios.day_id = days.id AND cardios.user_id = #{current_user.id}")
           .joins("LEFT JOIN meals on meals.day_id = days.id AND meals.user_id = #{current_user.id}")
@@ -18,7 +18,7 @@ class Day < ActiveRecord::Base
           .group("week(days.date)")
           .order("WEEK(days.date)")
 
-    stats = x.map do |f|
+    x.map do |f|
       ctr += 1
       string = "<ul><strong>Week #{ctr}(#{f.date.beginning_of_week.strftime('%m/%d/%Y')}):</strong><ul>"
       fats = f.fats || 0
@@ -43,7 +43,6 @@ class Day < ActiveRecord::Base
       string +="<li>Total Exercises Done: #{f.exercise_total}</li><li>Total Cardios Done: #{f.cardio_total}</li></ul></ul>"
       string.html_safe
     end
-    return {days: x, stats: stats}
   end
 
   def self.score(type)
