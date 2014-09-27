@@ -20,7 +20,7 @@ class Day < ActiveRecord::Base
               super_challenges.push_ups AS push_ups, super_challenges.pull_ups AS pull_ups, previous_sc.duration AS previous_sc_duration, 
               previous_sc.push_ups AS previous_sc_push_ups,previous_sc.pull_ups AS previous_sc_pull_ups")
               .joins("LEFT OUTER JOIN super_challenges AS previous_sc ON previous_sc.user_id = #{current_user.id} AND WEEK(previous_sc.date) = (WEEK(super_challenges.date) - 1)")
-              .where("super_challenges.user_id = 1 AND super_challenges.duration IS NOT NULL")
+              .where("super_challenges.user_id = #{current_user.id} AND super_challenges.duration IS NOT NULL")
               .group("WEEK(super_challenges.date)")
               .order("WEEK(super_challenges.date)")
     this_challenge_array = sums.pluck(:date).map{|f| f.beginning_of_week if f}
