@@ -48,22 +48,16 @@
     var hours = parseInt($("#super_challenge_duration").val() / 60);
     if (!isNaN(hours)){
       $("#hours").val(hours);
-    } else {
-      $("#hours").val(0);
     }
 
     var minutes = parseFloat($("#super_challenge_duration").val() / 60);
     if (!isNaN(minutes)){
-      $("#minutes").val(parseInt(60 * (minutes - hours)));
-    } else {
-      $("#minutes").val(0);
+      $("#minutes").val(parseInt(60 * (minutes - hours)))
     }
 
     var seconds = parseFloat(60 * (minutes - hours))
     if (!isNaN(seconds)){
-      $("#seconds").val(parseInt(60 * (seconds - parseInt(60 * (minutes - hours)))));
-    } else {
-      $("#seconds").val(0);
+      $("#seconds").val((60 * (seconds - parseInt(60 * (minutes - hours)))).toFixed());
     }
   }
   $("form").on('submit',function(){

@@ -39,24 +39,26 @@
 <script>
 if ($("#duration").text() != 0) {
 
-  var hours = parseInt($("#duration").text() / 60);
+  var hours = parseInt($("#duration").text() / 60.0);
   if (isNaN(hours)){
     hours = 0;
   }
 
-  var minutes = parseFloat($("#duration").text() / 60);
+  var minutes = parseFloat($("#duration").text() / 60.0);
   if (!isNaN(minutes)){
+    var seconds = parseFloat(60 * (minutes - hours));
     minutes = parseInt(60 * (minutes - hours));
   } else {
     minutes = 0;
+    var seconds = parseFloat(60 * (minutes - hours));
   }
 
-  var seconds = parseFloat(60 * (minutes - hours))
   if (!isNaN(seconds)){
-    seconds = parseInt(60 * (seconds - parseInt(60 * (minutes - hours))));
+    seconds = (60 * (seconds- minutes)).toFixed();
   } else {
     seconds = 0;
   }
+
   $("#duration").text(hours + " Hours, " + minutes + " Minutes, " + seconds + " Seconds")
 }
 </script>
