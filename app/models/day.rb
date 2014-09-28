@@ -13,10 +13,10 @@ class Day < ActiveRecord::Base
           .joins("LEFT JOIN exercises on exercises.day_id = days.id AND exercises.user_id = #{current_user.id}")
           .joins("LEFT JOIN cardios on cardios.day_id = days.id AND cardios.user_id = #{current_user.id}")
           .joins("LEFT JOIN meals on meals.day_id = days.id AND meals.user_id = #{current_user.id}")
-          .joins("LEFT OUTER JOIN super_challenges ON super_challenges.user_id = #{current_user.id} AND WEEK(super_challenges.date) = WEEK(days.date)")
-          .joins("LEFT OUTER JOIN super_challenges AS previous_sc ON previous_sc.user_id = #{current_user.id} AND WEEK(previous_sc.date) = (WEEK(days.date) - 1)")
-          .group("week(days.date)")
-          .order("WEEK(days.date)")
+          .joins("LEFT OUTER JOIN super_challenges ON super_challenges.user_id = #{current_user.id} AND WEEK(super_challenges.date,1) = WEEK(days.date,1)")
+          .joins("LEFT OUTER JOIN super_challenges AS previous_sc ON previous_sc.user_id = #{current_user.id} AND WEEK(previous_sc.date,1) = (WEEK(days.date,1) - 1)")
+          .group("WEEK(days.date,1)")
+          .order("WEEK(days.date,1)")
 
     x.map do |f|
       ctr += 1
