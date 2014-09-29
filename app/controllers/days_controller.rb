@@ -1,5 +1,5 @@
 class DaysController < ApplicationController
-  before_action :set_day, only: [:show, :edit, :update, :destroy]
+  before_action :set_day, only: [:edit, :update, :destroy]
 
   def index
     @days = current_user.days.all.order("date desc")
@@ -7,6 +7,7 @@ class DaysController < ApplicationController
   end
 
   def show
+    @day = Day.get_daily_stats(current_user,params[:id])
   end
 
   def new

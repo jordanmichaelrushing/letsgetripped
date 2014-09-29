@@ -1,6 +1,11 @@
 - title "- Day: #{@day.date.strftime("%b %d, %Y")}"
 %p#notice
   = notice
+
+%h2
+  = @day.date.strftime("%b %d, %Y")
+  %br
+  %br
 %strong.col-xs-12
   .col-xs-2
     = link_to 'Add Exercise', new_exercise_path({day: @day.id})
@@ -20,7 +25,25 @@
 %br
 %p.col-xs-12
   %strong
-    = @day.date.strftime("%b %d, %Y")
+    = "#{@day.calories} Calories"
+    %br
+    = "#{((@day.calories / 1480) * 100).round(2)}% Of Daily Allowable Calories"
+    %br
+    %br
+    = "#{@day.protein} grams of protein"
+    %br
+    = "#{((@day.protein / 111) * 100).round(2)}% Of Daily Allowable Protein"
+    %br
+    %br
+    = "#{@day.carbs} grams of carbs"
+    %br
+    = "#{((@day.carbs / 185) * 100).round(2)}% Of Daily Allowable Carbohydrates"
+    %br
+    %br
+    = "#{@day.fats} grams of fats"
+    %br
+    = "#{((@day.fats / 33) * 100).round(2)}% Of Daily Allowable Fats"
+    %br
   - if @day.exercises.present?
     .col-xs-12
       %strong
@@ -65,7 +88,7 @@
         .col-xs-3.height-selector.calf-height-selector{href: "#{calf_crunch_path(calf_crunch, day: @day.id)}"}
           %strong
             - if calf_crunch.set_type == "Calf"
-              = link_to "Calf Set #{calf_crunch.set_num}", calf_crunch
+              = link_to "Calf Raise Set #{calf_crunch.set_num}", calf_crunch
             - else
               = link_to "Crunch Set #{calf_crunch.set_num}", calf_crunch
           %ul
@@ -186,7 +209,7 @@
             %li
               %strong
                 Calories:
-              = number_with_precision(((meal.fats * 9) + (meal.carbs * 4) + (meal.protein * 4)),precision: 2)
+              = ((meal.fats * 9) + (meal.carbs * 4) + (meal.protein * 4)).round(2)
             %li
               %strong
                 Meal number:
