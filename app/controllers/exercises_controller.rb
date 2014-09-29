@@ -10,6 +10,7 @@ class ExercisesController < ApplicationController
 
   def new
     @day_id = params[:day]
+    @date = Day.find(@day_id).date
     @exercise = current_user.exercises.new
   end
 
@@ -52,6 +53,6 @@ class ExercisesController < ApplicationController
     end
 
     def exercise_params
-      params.require(:exercise).permit(:name, :notes, :img_url, :set_one_weight, :set_two_weight, :set_three_weight, :set_four_weight, :amrap_quantity, :day_id, :user_id)
+      params.require(:exercise).permit(:name, :notes, :img_url, :set_one_weight, :set_two_weight, :set_three_weight, :set_four_weight, :amrap_quantity, :day_id, :user_id, :date)
     end
 end

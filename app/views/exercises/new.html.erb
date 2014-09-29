@@ -2,6 +2,7 @@
 <h1>New Exercise</h1>
 <%= form_for(@exercise) do |f| %>
   <%= f.hidden_field :day_id, value: @day_id %>
+  <%= f.hidden_field :date, value: @date %>
   <%= render 'form', f: f %>
 <% end %>
 <%= link_to 'Back', day_path(@day_id) %>
