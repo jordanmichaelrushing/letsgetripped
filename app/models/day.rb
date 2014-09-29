@@ -9,10 +9,9 @@ class Day < ActiveRecord::Base
 
   def self.get_weekly_stats(current_user)
     ctr = 0
-    x = Day.select("days.date as date, COUNT(DISTINCT(exercises.id)) as exercise_total,COUNT(DISTINCT(cardios.id)) as cardio_total,COUNT(DISTINCT(meals.id)) as meal_total,SUM(meals.protein) as protein, SUM(meals.carbs) as carbs, SUM(meals.fats) as fats,super_challenges.id AS sc_id, previous_sc.id AS previous_sc_id, super_challenges.date AS sc_date, previous_sc.date AS previous_sc_date,super_challenges.duration AS duration,super_challenges.push_ups AS push_ups, super_challenges.pull_ups AS pull_ups, previous_sc.duration AS previous_sc_duration, previous_sc.push_ups AS previous_sc_push_ups,previous_sc.pull_ups AS previous_sc_pull_ups")
-          .joins("LEFT JOIN exercises on exercises.day_id = days.id AND exercises.user_id = #{current_user.id}")
-          .joins("LEFT JOIN cardios on cardios.day_id = days.id AND cardios.user_id = #{current_user.id}")
-          .joins("LEFT JOIN meals on meals.day_id = days.id AND meals.user_id = #{current_user.id}")
+    x = current_user.days.select("days.date as date, COUNT(DISTINCT(cardios.id)) as cardio_total,COUNT(DISTINCT(meals.id)) as meal_total,COALESCE(SUM((meals.protein * 4)+(meals.fats * 9)+(meals.carbs * 4)),0) as calories, COALESCE(SUM(meals.protein),0) as protein, COALESCE(SUM(meals.carbs),0) as carbs, COALESCE(SUM(meals.fats),0) as fats,super_challenges.id AS sc_id, previous_sc.id AS previous_sc_id, super_challenges.date AS sc_date, previous_sc.date AS previous_sc_date,super_challenges.duration AS duration,super_challenges.push_ups AS push_ups, super_challenges.pull_ups AS pull_ups, previous_sc.duration AS previous_sc_duration, previous_sc.push_ups AS previous_sc_push_ups,previous_sc.pull_ups AS previous_sc_pull_ups")
+          .joins("LEFT JOIN cardios on cardios.day_id = days.id")
+          .joins("LEFT JOIN meals on meals.day_id = days.id")
           .joins("LEFT OUTER JOIN super_challenges ON super_challenges.user_id = #{current_user.id} AND WEEK(super_challenges.date,1) = WEEK(days.date,1)")
           .joins("LEFT OUTER JOIN super_challenges AS previous_sc ON previous_sc.user_id = #{current_user.id} AND WEEK(previous_sc.date,1) = (WEEK(days.date,1) - 1)")
           .group("WEEK(days.date,1)")
@@ -24,9 +23,9 @@ class Day < ActiveRecord::Base
       fats = f.fats || 0
       carbs = f.carbs || 0
       protein = f.protein || 0
-      string += "<li>Total Calories: #{((fats * 9) + (carbs * 4) + (protein * 4)).round(2)}</li><li>Total Meals Eaten: #{f.meal_total}</li>"
+      string += "<li>Total Calories: #{f.calories.round(2)}</li><li>Total Meals Eaten: #{f.meal_total}</li>"
       if (f.meal_total != 0)
-        string +="<li>Average Calorie Per Meal: #{(((fats * 9) + (carbs * 4) + (protein * 4)) / f.meal_total).round(2)}</li>"
+        string +="<li>Average Calorie Per Meal: #{(f.calories / f.meal_total).round(2)}</li>"
       end
 
       if f.sc_id # if there was a SC this week
@@ -40,7 +39,7 @@ class Day < ActiveRecord::Base
       else
         string +="<li><i>Super Challenge Not Completed This Week</i></li>"
       end
-      string +="<li>Total Exercises Done: #{f.exercise_total}</li><li>Total Cardios Done: #{f.cardio_total}</li></ul></ul>"
+      string +="<li>Total Cardios Done: #{f.cardio_total}</li></ul></ul>"
       string.html_safe
     end
   end
