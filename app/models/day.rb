@@ -10,7 +10,7 @@ class Day < ActiveRecord::Base
   def self.get_daily_stats(current_user,day_id)
     current_user.days
         .select("days.*, ROUND(COALESCE(SUM((meals.protein * 4)+(meals.fats * 9)+(meals.carbs * 4)),0),2) as calories, ROUND(COALESCE(SUM(meals.protein),0),2) as protein, ROUND(COALESCE(SUM(meals.carbs),0),2) as carbs, ROUND(COALESCE(SUM(meals.fats),0),2) as fats")
-        .where("days.id = #{day_id}")
+        .where("days.id = '#{day_id}'")
         .joins("LEFT JOIN meals on meals.day_id = days.id").first
   end
 

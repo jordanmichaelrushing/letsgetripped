@@ -22,6 +22,9 @@ class DaysController < ApplicationController
   def create
     params[:date] = Date.parse(params[:day][:date])
     @day = current_user.days.new(day_params)
+    unless (@day.video_url.nil?) || (@day.video_url.include? "http://")
+      @day.video_url = "http://" + @day.video_url
+    end
 
     respond_to do |format|
       if @day.save
@@ -33,8 +36,12 @@ class DaysController < ApplicationController
   end
 
   def update
+    @day.assign_attributes(day_params)
+    unless (@day.video_url == "") || (@day.video_url.include? "http://")
+      @day.video_url = "http://" + @day.video_url
+    end
     respond_to do |format|
-      if @day.update(day_params)
+      if @day.save
         format.html { redirect_to @day, notice: 'Day was successfully updated.' }
       else
         format.html { render :edit }
