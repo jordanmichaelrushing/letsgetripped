@@ -55,6 +55,6 @@ class DaysController < ApplicationController
     end
 
     def day_params
-      params.require(:day).permit(:date, :user_id)
+      params.require(:day).permit(:date, :user_id, :video_url)
     end
 end

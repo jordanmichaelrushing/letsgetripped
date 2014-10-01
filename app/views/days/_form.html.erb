@@ -19,6 +19,10 @@
       <%= f.text_field :date, placeholder: Date.today.strftime("%Y-%m-%d"), value: Date.today.strftime("%Y-%m-%d") %>
     <% end %>
   </div>
+  <div class="field">
+    <%= f.label "Video Url of daily vlog (Not neccessary)" %><br>
+    <%= f.text_field :video_url %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
