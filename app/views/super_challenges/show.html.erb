@@ -32,8 +32,9 @@
 <strong>Score:</strong>
 <%= @score %> Out Of 300 Points
 <br><br>
+<%= link_to 'Home', root_path %>
+<br><br>
 <%= link_to 'Edit', edit_super_challenge_path(@super_challenge, day: @day_id) %> |
-<%= link_to 'Home', root_path %> |
 <%= link_to 'Destroy', @super_challenge, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <script>

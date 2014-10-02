@@ -37,7 +37,8 @@
   <strong> Times Walked: </strong>
   <%= @cardio.times_walked %>
 </p>
-
+<br>
+<%= link_to 'Home', root_path %>
+<br><br>
 <%= link_to 'Edit', edit_exercise_path(@cardio, day: @day_id) %> |
-<%= link_to 'Home', root_path %> |
 <%= link_to 'Destroy', @cardio, method: :delete, data: { confirm: 'Are you sure?' } %>
