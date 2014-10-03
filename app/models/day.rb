@@ -32,8 +32,7 @@ class Day < ActiveRecord::Base
           .order("WEEK(days.date,1)")
 
     x.map do |f|
-      ctr += 1
-      string = "<ul><strong>Week #{ctr}(#{f.date.beginning_of_week.strftime('%m/%d/%Y')}):</strong><ul>"
+      string = "<ul><strong>Week #{ctr} (#{f.date.beginning_of_week.strftime('%m/%d/%Y')}):</strong><ul>"
       string += "<li>Total Calories: #{f.calories}</li><li>Total Meals Eaten: #{f.meal_total}</li>"
       if (f.meal_total != 0)
         string +="<li>Average Calorie Per Meal: #{(f.calories / f.meal_total).round(2)}</li>"
@@ -41,7 +40,11 @@ class Day < ActiveRecord::Base
 
       if f.sc_id # if there was a SC this week
         if f.previous_sc_id # If there was a SC this week and last week
-          string += "<li>Super Challenge Comparison to previous week: <ul><li>#{(f.duration - f.previous_sc_duration).round(2)} minutes</li><li>#{score(f) - old_score(f)} points</li></ul></li>"
+          if score(f) >= 0
+            string += "<li>Super Challenge Comparison to previous week: <ul><li>#{time(f)}</li><li>+#{score(f)} points</li></ul></li>"
+          else 
+            string += "<li>Super Challenge Comparison to previous week: <ul><li>#{time(f)}</li><li>#{score(f)} points</li></ul></li>"
+          end
         else # If there was a SC this week but not last week
           string += "<li><i>No Challenge completed in prior week</i></li>"
         end
@@ -51,8 +54,9 @@ class Day < ActiveRecord::Base
         string +="<li><i>Super Challenge Not Completed This Week</i></li>"
       end
 
-      string +="<li>Total Exercises Done: #{cardio[ctr-1].exercise_total}</li><li>Total Cardios Done: #{cardio[ctr-1].cardio_total}</li>
-                <li>Average Cardio Distance: #{cardio[ctr-1].avg_cardio_dist} Miles</li><li>Average Cardio Speed: #{cardio[ctr-1].avg_cardio_speed} mph</li></ul></ul>"
+      string +="<li>Total Exercises Done: #{cardio[ctr].exercise_total}</li><li>Total Cardios Done: #{cardio[ctr].cardio_total}</li>
+                <li>Average Cardio Distance: #{cardio[ctr].avg_cardio_dist} Miles</li><li>Average Cardio Speed: #{cardio[ctr].avg_cardio_speed} mph</li></ul></ul>"
+      ctr += 1
       string.html_safe
     end
   end
@@ -78,30 +82,41 @@ class Day < ActiveRecord::Base
     else
       new_pull_ups = type.pull_ups.to_i * 5 || 0
     end
-    return (new_pull_ups + new_push_ups + new_time)
-  end
-
-  def self.old_score(type)
     if type.previous_sc_duration
       if type.previous_sc_duration.to_i > 18
-        new_time = 100 - ((type.previous_sc_duration * 60 - 1080) / 10).to_i
-        new_time = 0 if new_time < 0
+        old_time = 100 - ((type.previous_sc_duration * 60 - 1080) / 10).to_i
+        old_time = 0 if old_time < 0
       else
-        new_time = 100
+        old_time = 100
       end
     else
-      new_time = 0
+      old_time = 0
     end
     if type.previous_sc_push_ups.to_i >= 50
-      new_push_ups = 100
+      old_push_ups = 100
     else
-      new_push_ups = type.previous_sc_push_ups.to_i * 2 || 0
+      old_push_ups = type.previous_sc_push_ups.to_i * 2 || 0
     end
     if type.previous_sc_pull_ups.to_i >= 20
-      new_pull_ups = 100
+      old_pull_ups = 100
     else
-      new_pull_ups = type.previous_sc_pull_ups.to_i * 5 || 0
+      old_pull_ups = type.previous_sc_pull_ups.to_i * 5 || 0
     end
-    return (new_pull_ups + new_push_ups + new_time)
+    return ((new_pull_ups + new_push_ups + new_time)-(old_pull_ups + old_push_ups + old_time))
+  end
+
+  def self.time(challenge)
+    time = (challenge.duration - challenge.previous_sc_duration).round(2)
+    hours = (time / 60.0).to_i
+    minutes = (time / 60.0).to_f
+    seconds = (60 * (minutes - hours)).to_f
+    minutes = (60 * (minutes - hours)).to_i
+    seconds = (60 * (seconds- minutes)).round()
+
+    if (hours != hours.abs) || (minutes != minutes.abs) || (seconds != seconds.abs)
+      return "-#{hours.abs} Hours, #{minutes.abs} Minutes, #{seconds.abs} Seconds"
+    else
+      return "+#{hours} Hours, #{minutes} Minutes, #{seconds} Seconds"
+    end
   end
 end
