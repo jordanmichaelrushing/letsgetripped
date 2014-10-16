@@ -1,7 +1,7 @@
 - title "- Day: #{@day.date.strftime("%b %d, %Y")}"
-%p#notice
-  = notice
-
+- if notice
+  %p#notice
+    = notice
 %h2
   = @day.date.strftime("%b %d, %Y")
   %br
@@ -19,11 +19,33 @@
     = link_to 'Add Crunches/Calf Raises', new_calf_crunch_path({day: @day.id})
   .col-xs-2
     = link_to 'Add Pushups', new_pushup_path({day: @day.id})
-  %br
-  %br
-%br
-%br
 %p.col-xs-12
+  - today = @day.date.strftime("%w")
+  - if today == "1" #Monday
+    - if @day.exercise_total + @day.calf_crunch_total < 4
+      %div{style: "color:red"}
+        You need to complete all of your exercises for today fatass!
+  - elsif today == "2" #Tuesday
+    - if @day.cardio_total == 0
+      %div{style: "color:red"}
+        You need to complete your cardio for today fatass!
+  - elsif today == "3" #Wednesday
+    - if @day.exercise_total + @day.calf_crunch_total < 4
+      %div{style: "color:red"}
+        You need to complete all of your exercises for today fatass!
+  - elsif today == "4" #Thursday
+    - if @day.cardio_total == 0
+      %div{style: "color:red"}
+        You need to complete your cardio for today fatass!
+  - elsif today == "5" #Friday
+    - if @day.exercise_total < 6
+      %div{style: "color:red"}
+        You need to complete all of your exercises for today fatass!
+  - elsif today == "6" #Saturday
+    - if @day.super_challenge_total == 0
+      %div{style: "color:red"}
+        You need to complete your super challenge for today fatass!
+  %br
   - if (@day.video_url) && (@day.video_url.include? "http://")
     .col-xs-6
       %strong

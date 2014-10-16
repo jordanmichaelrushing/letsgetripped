@@ -9,9 +9,13 @@ class Day < ActiveRecord::Base
 
   def self.get_daily_stats(current_user,day_id)
     current_user.days
-        .select("days.*, ROUND(COALESCE(SUM((meals.protein * 4)+(meals.fats * 9)+(meals.carbs * 4)),0),2) as calories, ROUND(COALESCE(SUM(meals.protein),0),2) as protein, ROUND(COALESCE(SUM(meals.carbs),0),2) as carbs, ROUND(COALESCE(SUM(meals.fats),0),2) as fats")
+        .select("days.*, COUNT(super_challenges.id) as super_challenge_total, COUNT(cardios.id) as cardio_total, COUNT(exercises.id) as exercise_total, COUNT(calf_crunches.id) as calf_crunch_total, ROUND(COALESCE(SUM((meals.protein * 4)+(meals.fats * 9)+(meals.carbs * 4)),0),2) as calories, ROUND(COALESCE(SUM(meals.protein),0),2) as protein, ROUND(COALESCE(SUM(meals.carbs),0),2) as carbs, ROUND(COALESCE(SUM(meals.fats),0),2) as fats")
         .where("days.id = '#{day_id}'")
-        .joins("LEFT JOIN meals on meals.day_id = days.id").first
+        .joins("LEFT JOIN meals on meals.day_id = days.id")
+        .joins("LEFT JOIN calf_crunches on calf_crunches.day_id = days.id")
+        .joins("LEFT JOIN cardios on cardios.day_id = days.id")
+        .joins("LEFT JOIN exercises on exercises.day_id = days.id")
+        .joins("LEFT JOIN super_challenges ON super_challenges.day_id = days.id").first
   end
 
   def self.get_weekly_stats(current_user)
